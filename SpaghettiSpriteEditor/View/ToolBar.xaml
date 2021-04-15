@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="SpaghettiSpriteEditor.View.ToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpaghettiSpriteEditor.View"
+             xmlns:ui="clr-namespace:SpaghettiTools.Components;assembly=SpaghettiTools"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="100"
+             x:Name="root">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Model/Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="5">
+            <StackPanel.Resources>
+                <Style TargetType="ui:IconButton">
+                    <Setter Property="Height" Value="25"/>
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=Foreground}"/>
+                </Style>
+            </StackPanel.Resources>
+            <Border x:Name="pencilButton" MouseDown="SelectTool"
+                    Background="{StaticResource Component}">
+                <ui:IconButton Text="Pencil" TextAlignment="Right" IconSource="{StaticResource Pencil}"/>
+            </Border>
+            <Border x:Name="eraserButton" MouseDown="SelectTool"
+                    Background="{StaticResource Component}">
+                <ui:IconButton Text="Eraser" TextAlignment="Right" IconSource="{StaticResource Eraser}"/>
+            </Border>
+            <Border x:Name="moveButton" MouseDown="SelectTool"
+                    Background="{StaticResource Component}">
+                <ui:IconButton Text="Move" TextAlignment="Right" IconSource="{StaticResource Move}"/>
+            </Border>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ui:FlatButton Text="Import" 
+                              Margin="0, 2, 0, 2"
+                              FontSize="12"
+                              TextAlignment="Center"
+                              MouseDown="ImportImage"/>
+
+            <ui:FlatButton Text="Export" 
+                              Grid.Row="1"
+                              Margin="0, 2, 0, 2"
+                              FontSize="12"
+                              TextAlignment="Center"/>
+        </Grid>
+    </Grid>
+</UserControl>

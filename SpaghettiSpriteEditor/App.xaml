@@ -1,0 +1,16 @@
+﻿<Application x:Class="SpaghettiSpriteEditor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SpaghettiSpriteEditor"
+             StartupUri="View/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Model/Theme.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SpaghettiTools;component/Components.xaml"/>
+                <ResourceDictionary Source="Resource/Icon.xaml"/>
+                <ResourceDictionary Source="Resource/Cursor.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

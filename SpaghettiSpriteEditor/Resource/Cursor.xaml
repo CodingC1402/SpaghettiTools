@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <BitmapImage x:Key="EraserCursor" UriSource="Cursor/eraser.png"/>
+    <BitmapImage x:Key="PencilCursor" UriSource="Cursor/pencil.png"/>
+    <BitmapImage x:Key="MoveCursor" UriSource="Cursor/move.png"/>
+</ResourceDictionary>

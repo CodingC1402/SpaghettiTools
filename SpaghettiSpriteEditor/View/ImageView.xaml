@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="SpaghettiSpriteEditor.View.ImageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpaghettiSpriteEditor.View"
+             xmlns:ui="clr-namespace:SpaghettiTools.Components;assembly=SpaghettiTools"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="content">
+        <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Image x:Name="image" 
+                   RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                <Canvas x:Name="cursorCanvas"
+                Cursor="None"
+                MouseMove="CustomCusorMouseMove"
+                MouseLeave="cursorCanvas_MouseLeave"
+                MouseEnter="cursorCanvas_MouseEnter"
+                Background="Transparent">
+                    <Image x:Name="customCursor" RenderOptions.BitmapScalingMode="HighQuality"
+                   Width="{Binding CursorWidth}"
+                   Height="{Binding CursorHeight}"
+                   Source="{StaticResource Pencil}"/>
+                </Canvas>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resource\Cursor\eraser.png" />
+    <None Remove="Resource\Cursor\move.png" />
+    <None Remove="Resource\Cursor\pencil.png" />
+    <None Remove="Resource\eraser.png" />
+    <None Remove="Resource\export.png" />
+    <None Remove="Resource\import.png" />
+    <None Remove="Resource\move.png" />
+    <None Remove="Resource\pencil.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SpaghettiTools\SpaghettiTools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resource\Cursor\eraser.png" />
+    <Resource Include="Resource\Cursor\move.png" />
+    <Resource Include="Resource\Cursor\pencil.png" />
+    <Resource Include="Resource\Icon\eraser.png" />
+    <Resource Include="Resource\Icon\export.png" />
+    <Resource Include="Resource\Icon\import.png" />
+    <Resource Include="Resource\Icon\move.png" />
+    <Resource Include="Resource\Icon\pencil.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\ImageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\ImageView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

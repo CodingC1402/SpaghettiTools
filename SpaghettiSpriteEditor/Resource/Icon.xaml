@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <BitmapImage x:Key="Eraser" UriSource="Icon/eraser.png"/>
+    <BitmapImage x:Key="Pencil" UriSource="Icon/pencil.png"/>
+    <BitmapImage x:Key="Move" UriSource="Icon/move.png"/>
+    <BitmapImage x:Key="Import" UriSource="Icon/import.png"/>
+    <BitmapImage x:Key="Export" UriSource="Icon/export.png"/>
+</ResourceDictionary>
