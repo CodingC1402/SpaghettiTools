@@ -11,13 +11,16 @@ namespace SpaghettiSpriteEditor.ViewModel
     {
         protected SpriteEditor.Tools toolType = SpriteEditor.Tools.Invalid;
         protected SpriteEditor editor;
-
+        protected bool isSelected = false;
         protected bool isStarted = false;
         public BaseTool()
         {
             editor = SpriteEditor.GetInstance();
         }
-
+        public virtual void Select() 
+        {
+            isSelected = true;
+        }
         public virtual void StartJob(MouseButtonEventArgs e)
         {
             isStarted = true;
@@ -26,6 +29,10 @@ namespace SpaghettiSpriteEditor.ViewModel
         public virtual void EndJob(MouseButtonEventArgs e)
         {
             isStarted = false;
+        }
+        public virtual void Unselect() 
+        {
+            isSelected = false; 
         }
     }
 }

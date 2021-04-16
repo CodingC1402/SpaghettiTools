@@ -14,6 +14,8 @@ namespace SpaghettiSpriteEditor.ViewModel
 {
     public class ZoomTool : BaseTool
     {
+        int zoomSpeed = 20;
+
         Point origin;
         Point old;
         Point current;
@@ -52,7 +54,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             current = e.GetPosition(editor.ImageViewPort);
 
             deltaY = (int)(current.Y - origin.Y);
-            int scale = (Math.Abs(deltaY) / 100 + 1);
+            int scale = (Math.Abs(deltaY) / zoomSpeed + 1);
             if (deltaY == 0)
             {
                 editor.ZoomIn(1);

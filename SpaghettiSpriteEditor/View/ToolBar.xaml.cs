@@ -27,7 +27,7 @@ namespace SpaghettiSpriteEditor.View
         {
             InitializeComponent();
 
-            switch (SpriteEditor.GetInstance().SelectedTool)
+            switch (SpriteEditor.GetInstance().SelectedToolType)
             {
                 case SpriteEditor.Tools.Eraser:
                     selectedToolButton = eraserButton;
@@ -37,6 +37,9 @@ namespace SpaghettiSpriteEditor.View
                     break;
                 case SpriteEditor.Tools.Move:
                     selectedToolButton = moveButton;
+                    break;
+                case SpriteEditor.Tools.Zoom:
+                    selectedToolButton = zoomButton;
                     break;
             }
             selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.ComponentSelected);
@@ -72,7 +75,7 @@ namespace SpaghettiSpriteEditor.View
                 {
                     tool = SpriteEditor.Tools.Zoom;
                 }
-                SpriteEditor.GetInstance().SelectedTool = tool;
+                SpriteEditor.GetInstance().SelectedToolType = tool;
                 selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.Component);
                 selectedToolButton = (Border)sender;
                 selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.ComponentSelected);

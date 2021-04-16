@@ -48,7 +48,7 @@
             </Border>
             <Border x:Name="zoomButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="Zoom" TextAlignment="Right" IconSource="{StaticResource ZoomIn}"/>
+                <ui:IconButton Text="Zoom" TextAlignment="Right" IconSource="{StaticResource Zoom}"/>
             </Border>
         </StackPanel>
         <Grid Grid.Row="1">

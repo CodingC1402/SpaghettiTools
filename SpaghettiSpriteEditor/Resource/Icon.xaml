@@ -5,6 +5,5 @@
     <BitmapImage x:Key="Move" UriSource="Icon/move.png"/>
     <BitmapImage x:Key="Import" UriSource="Icon/import.png"/>
     <BitmapImage x:Key="Export" UriSource="Icon/export.png"/>
-    <BitmapImage x:Key="ZoomIn" UriSource="Icon/zoomIn.png"/>
-    <BitmapImage x:Key="ZoomOut" UriSource="Icon/zoomOut.png"/>
+    <BitmapImage x:Key="Zoom" UriSource="Icon/zoom.png"/>
 </ResourceDictionary>

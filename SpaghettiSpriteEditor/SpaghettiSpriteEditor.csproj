@@ -10,10 +10,10 @@
     <None Remove="Resource\Cursor\eraser.png" />
     <None Remove="Resource\Cursor\move.png" />
     <None Remove="Resource\Cursor\pencil.png" />
+    <None Remove="Resource\Cursor\zoom.png" />
     <None Remove="Resource\eraser.png" />
     <None Remove="Resource\export.png" />
-    <None Remove="Resource\Icon\zoomIn.png" />
-    <None Remove="Resource\Icon\zoomOut.png" />
+    <None Remove="Resource\Icon\zoom.png" />
     <None Remove="Resource\import.png" />
     <None Remove="Resource\move.png" />
     <None Remove="Resource\pencil.png" />
@@ -27,13 +27,13 @@
     <Resource Include="Resource\Cursor\eraser.png" />
     <Resource Include="Resource\Cursor\move.png" />
     <Resource Include="Resource\Cursor\pencil.png" />
+    <Resource Include="Resource\Cursor\zoom.png" />
     <Resource Include="Resource\Icon\eraser.png" />
     <Resource Include="Resource\Icon\export.png" />
     <Resource Include="Resource\Icon\import.png" />
     <Resource Include="Resource\Icon\move.png" />
     <Resource Include="Resource\Icon\pencil.png" />
-    <Resource Include="Resource\Icon\zoomIn.png" />
-    <Resource Include="Resource\Icon\zoomOut.png" />
+    <Resource Include="Resource\Icon\zoom.png" />
   </ItemGroup>
 
   <ItemGroup>

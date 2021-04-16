@@ -21,20 +21,27 @@
                    StrokeDashCap="Flat"
                    Stroke="{Binding Foreground}">
         </Rectangle>
-        <Grid Margin="3,3,3,3">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="indexText"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Right"
+            <Border VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Grid.Column="1"
+                    BorderThickness="2"
+                    BorderBrush="{Binding Foreground}"
+                    Padding="5, 1, 5, 1">
+                <TextBlock x:Name="indexText"
                        TextAlignment="Right"
                        Grid.Column="1"
                        Foreground="{Binding Foreground}"/>
+            </Border>
 
-            <StackPanel Grid.Column="0">
+
+            <StackPanel Grid.Column="0"
+                        Margin="3,3,3,3">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

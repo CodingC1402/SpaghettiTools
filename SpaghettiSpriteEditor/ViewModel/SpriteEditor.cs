@@ -36,17 +36,17 @@ namespace SpaghettiSpriteEditor.ViewModel
             Zoom,
             Invalid
         }
-        public Tools SelectedTool
+        public Tools SelectedToolType
         {
-            get { return selectedTool; }
+            get { return selectedToolType; }
             set 
             { 
-                selectedTool = value;
+                selectedToolType = value;
                 ChangeTool();
                 ChangeCursorImage();
             }
         }
-        protected Tools selectedTool;
+        protected Tools selectedToolType;
 
         protected OpenFileDialog opfDialog;
         public Image ImageDisplay
@@ -71,6 +71,13 @@ namespace SpaghettiSpriteEditor.ViewModel
             }
         }
         protected ScrollViewer imageViewPort;
+
+        public Canvas CursorContainer
+        {
+            get { return _cursorContainer; }
+            set { _cursorContainer = value; }
+        }
+        public Canvas _cursorContainer;
 
         public Image CursorImage
         {
@@ -113,7 +120,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected void Init()
         {
-            selectedTool = Tools.Pencil;
+            selectedToolType = Tools.Zoom;
             tools.Add(Tools.Pencil, new PencilTool());
             tools.Add(Tools.Zoom, new ZoomTool());
             ChangeTool();
@@ -127,10 +134,14 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         public void DoJob(MouseEventArgs e)
         {
+            if (currentTexture == null)
+                return;
             currentTool.DoJob(e);
         }
         public void EndJob(MouseButtonEventArgs e)
         {
+            if (currentTexture == null)
+                return;
             currentTool.EndJob(e);
         }
         #endregion
@@ -173,7 +184,9 @@ namespace SpaghettiSpriteEditor.ViewModel
 
         protected void ChangeTool()
         {
-            switch (selectedTool)
+            if (currentTool != null)
+                currentTool.Unselect();
+            switch (selectedToolType)
             {
                 case Tools.Pencil:
                     currentTool = tools[Tools.Pencil];
@@ -188,10 +201,11 @@ namespace SpaghettiSpriteEditor.ViewModel
                     currentTool = tools[Tools.Zoom];
                     break;
             }
+            currentTool.Select();
         }
         protected void ChangeCursorImage()
         {
-            switch(selectedTool)
+            switch(selectedToolType)
             {
                 case Tools.Pencil:
                     CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/pencil.png"));
@@ -203,7 +217,7 @@ namespace SpaghettiSpriteEditor.ViewModel
                     CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/move.png"));
                     break;
                 case Tools.Zoom:
-
+                    CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/zoom.png"));
                     break;
             }
         }

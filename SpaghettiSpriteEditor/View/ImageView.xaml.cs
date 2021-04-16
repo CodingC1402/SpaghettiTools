@@ -53,6 +53,7 @@ namespace SpaghettiSpriteEditor.View
             editor.CursorImage = customCursor;
             editor.SpriteCollection = spritesCollection;
             editor.ImageViewPort = imageViewPort;
+            editor.CursorContainer = cursorCanvas;
         }
         private void ScrollToWholeNumer(object sender, ScrollChangedEventArgs e)
         {
