@@ -13,7 +13,6 @@
                 <Setter Property="FontSize" Value="{Binding FontSize}"/>
                 <Setter Property="FontWeight" Value="{Binding FontWeight}"/>
                 <Setter Property="FontStyle" Value="{Binding FontStyle}"/>
-                <Setter Property="FontStretch" Value="{Binding FontStrecth}"/>
             </Style>
         </Grid.Resources>
         <Rectangle StrokeThickness="2"

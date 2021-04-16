@@ -81,9 +81,9 @@ namespace SpaghettiSpriteEditor.ViewModel
 
         public override void EndJob(MouseButtonEventArgs e)
         {
+            base.EndJob(e);
             if (!isStarted)
                 return;
-            isStarted = false;
         }
     }
 }
