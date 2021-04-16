@@ -35,8 +35,8 @@ namespace SpaghettiSpriteEditor.ViewModel
             currentSprite = newSprite;
             newSprite.Width = 0;
             newSprite.Height = 0;
-            origin.X = (int)(origin.X / editor.Scale + 0.5);
-            origin.Y = (int)(origin.Y / editor.Scale + 0.5);
+            origin.X = origin.X / editor.Scale;
+            origin.Y = origin.Y / editor.Scale;
             newSprite.Position = origin;
         }
         public override void DoJob(MouseEventArgs e)
@@ -45,11 +45,11 @@ namespace SpaghettiSpriteEditor.ViewModel
                 return;
 
             point = e.GetPosition(editor.ImageDisplay);
-            point.X = (int)(point.X / editor.Scale + 0.5);
-            point.Y = (int)(point.Y / editor.Scale + 0.5);
+            point.X = point.X / editor.Scale;
+            point.Y = point.Y / editor.Scale;
 
-            int deltaX = (int)(point.X - origin.X);
-            int deltaY = (int)(point.Y - origin.Y);
+            double deltaX = point.X - origin.X;
+            double deltaY = point.Y - origin.Y;
             anchor.X = deltaX < 0 ? point.X : origin.X;
             anchor.Y = deltaY < 0 ? point.Y : origin.Y;
 

@@ -36,9 +36,9 @@ namespace SpaghettiSpriteEditor.View
             get { return height; }
             set
             {
-                height = value;
-                base.Height = value * SpriteEditor.GetInstance().Scale;
-                hText.Text = $"H:{value}";
+                height = (int)(value + 0.5);
+                base.Height = height * SpriteEditor.GetInstance().Scale;
+                hText.Text = $"H:{height}";
             }
         }
         double height;
@@ -48,9 +48,9 @@ namespace SpaghettiSpriteEditor.View
             get { return width; }
             set
             {
-                width = value;
-                base.Width = value * SpriteEditor.GetInstance().Scale;
-                wText.Text = $"W:{value}";
+                width = (int)(value + 0.5);
+                base.Width = width * SpriteEditor.GetInstance().Scale;
+                wText.Text = $"W:{width}";
             }
         }
         double width;
@@ -60,7 +60,8 @@ namespace SpaghettiSpriteEditor.View
             get { return position; }
             set
             {
-                position = value;
+                position.X = (int)(value.X + 0.5);
+                position.Y = (int)(value.Y + 0.5);
                 corXText.Text = $"X:{position.X}";
                 corYText.Text = $"Y:{position.Y}";
                 double scale = SpriteEditor.GetInstance().Scale;
@@ -72,6 +73,7 @@ namespace SpaghettiSpriteEditor.View
         public SpriteCut()
         {
             InitializeComponent();
+            position = new Point(0, 0);
             VerticalAlignment = VerticalAlignment.Top;
             HorizontalAlignment = HorizontalAlignment.Left;
             Index = 0;

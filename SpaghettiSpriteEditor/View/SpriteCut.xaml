@@ -16,12 +16,12 @@
                 <Setter Property="FontStretch" Value="{Binding FontStrecth}"/>
             </Style>
         </Grid.Resources>
-        <Rectangle StrokeThickness="1"
-                   StrokeDashArray="1"
+        <Rectangle StrokeThickness="2"
+                   StrokeDashArray="3"
                    StrokeDashCap="Flat"
                    Stroke="{Binding Foreground}">
         </Rectangle>
-        <Grid>
+        <Grid Margin="3,3,3,3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80*"/>
                 <ColumnDefinition Width="20*"/>
@@ -67,7 +67,6 @@
                     </TextBlock>
                 </Grid>
             </StackPanel>
-
         </Grid>
     </Grid>
 </UserControl>

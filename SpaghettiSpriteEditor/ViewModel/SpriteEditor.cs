@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Threading.Tasks;
 using SpaghettiSpriteEditor.View;
 
+using SpaghettiTools.Utilities;
+
 namespace SpaghettiSpriteEditor.ViewModel
 {
     public class SpriteEditor
@@ -160,8 +162,8 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected void UpdateToScale()
         {
-            imageDisplay.Width = originalWidth * scale;
-            imageDisplay.Height = originalHeight * scale;
+            imageDisplay.Width = (int)(originalWidth * scale + 0.5);
+            imageDisplay.Height = (int)(originalHeight * scale + 0.5);
             foreach (SpriteCut cut in spriteCollection.Children)
             {
                 cut.UpdateToScale();
@@ -211,10 +213,10 @@ namespace SpaghettiSpriteEditor.ViewModel
             {
                 currentTexture = new BitmapImage(new Uri(opfDialog.FileName));
                 ImageDisplay.Source = CurrentTexture;
-                ImageDisplay.Width = CurrentTexture.Width;
-                ImageDisplay.Height = CurrentTexture.Height;
-                originalWidth = (int)currentTexture.Width;
-                originalHeight = (int)CurrentTexture.Height;
+                ImageDisplay.Width = (int)(CurrentTexture.PixelWidth);
+                ImageDisplay.Height = (int)(CurrentTexture.PixelHeight);
+                originalWidth = (int)ImageDisplay.Width;
+                originalHeight = (int)ImageDisplay.Height;
                 return true;
             }
 
