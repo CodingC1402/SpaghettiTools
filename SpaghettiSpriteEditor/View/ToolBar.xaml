@@ -46,13 +46,9 @@
                     Background="{StaticResource Component}">
                 <ui:IconButton Text="Move" TextAlignment="Right" IconSource="{StaticResource Move}"/>
             </Border>
-            <Border x:Name="zoomInButton" MouseDown="SelectTool"
+            <Border x:Name="zoomButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="Zoom In" TextAlignment="Right" IconSource="{StaticResource ZoomIn}"/>
-            </Border>
-            <Border x:Name="zoomOutButton" MouseDown="SelectTool"
-                    Background="{StaticResource Component}">
-                <ui:IconButton Text="Zoom Out" TextAlignment="Right" IconSource="{StaticResource ZoomOut}"/>
+                <ui:IconButton Text="Zoom" TextAlignment="Right" IconSource="{StaticResource ZoomIn}"/>
             </Border>
         </StackPanel>
         <Grid Grid.Row="1">

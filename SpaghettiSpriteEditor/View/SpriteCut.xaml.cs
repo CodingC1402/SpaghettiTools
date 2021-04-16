@@ -63,7 +63,7 @@ namespace SpaghettiSpriteEditor.View
                 position = value;
                 corXText.Text = $"X:{position.X}";
                 corYText.Text = $"Y:{position.Y}";
-                int scale = SpriteEditor.GetInstance().Scale;
+                double scale = SpriteEditor.GetInstance().Scale;
                 Margin = new Thickness(position.X * scale, position.Y * scale, 0, 0);
             }
         }
@@ -79,7 +79,7 @@ namespace SpaghettiSpriteEditor.View
 
         public void UpdateToScale()
         {
-            int scale = SpriteEditor.GetInstance().Scale;
+            double scale = SpriteEditor.GetInstance().Scale;
             base.Width = Width * scale;
             base.Height = Height * scale;
             base.Margin = new Thickness(Position.X * scale, Position.Y * scale, 0, 0);

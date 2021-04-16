@@ -31,6 +31,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             Pencil,
             Eraser,
             Move,
+            Zoom,
             Invalid
         }
         public Tools SelectedTool
@@ -61,7 +62,7 @@ namespace SpaghettiSpriteEditor.ViewModel
 
         public ScrollViewer ImageViewPort
         {
-            get { return ImageViewPort; }
+            get { return imageViewPort; }
             set
             {
                 imageViewPort = value;
@@ -87,11 +88,11 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected Canvas spriteCollection;
 
-        public int Scale
+        public double Scale
         {
             get { return scale; }
         }
-        protected int scale = 1;
+        protected double scale = 1;
         protected Dictionary<Tools, BaseTool> tools;
         protected BaseTool currentTool;
         protected int originalWidth;
@@ -112,6 +113,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         {
             selectedTool = Tools.Pencil;
             tools.Add(Tools.Pencil, new PencilTool());
+            tools.Add(Tools.Zoom, new ZoomTool());
             ChangeTool();
         }
         #region Job
@@ -132,20 +134,38 @@ namespace SpaghettiSpriteEditor.ViewModel
         #endregion
 
         #region Zoom
-        public bool Zoom(int setScale)
+        public bool ZoomIn(int setScale)
         {
+            if (setScale == scale)
+                return true;
+
             if (setScale < 0.01 || setScale > 20)
                 return false;
 
             scale = setScale;
+            UpdateToScale();
+            return true;
+        }
+        public bool ZoomOut(int setScale)
+        {
+            if (setScale == scale)
+                return true;
+
+            if (setScale < 0.01 || setScale > 20)
+                return false;
+
+            scale = 1 / (double)setScale;
+            UpdateToScale();
+            return true;
+        }
+        protected void UpdateToScale()
+        {
             imageDisplay.Width = originalWidth * scale;
             imageDisplay.Height = originalHeight * scale;
             foreach (SpriteCut cut in spriteCollection.Children)
             {
                 cut.UpdateToScale();
             }
-
-            return true;
         }
         #endregion
 
@@ -162,6 +182,9 @@ namespace SpaghettiSpriteEditor.ViewModel
                 case Tools.Move:
                     currentTool = tools[Tools.Move];
                     break;
+                case Tools.Zoom:
+                    currentTool = tools[Tools.Zoom];
+                    break;
             }
         }
         protected void ChangeCursorImage()
@@ -176,6 +199,9 @@ namespace SpaghettiSpriteEditor.ViewModel
                     break;
                 case Tools.Move:
                     CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/move.png"));
+                    break;
+                case Tools.Zoom:
+
                     break;
             }
         }
