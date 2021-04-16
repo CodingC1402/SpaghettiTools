@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using SpaghettiSpriteEditor.View;
 
 namespace SpaghettiSpriteEditor.ViewModel
 {
@@ -39,6 +40,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             { 
                 selectedTool = value;
                 ChangeTool();
+                ChangeCursorImage();
             }
         }
         protected Tools selectedTool;
@@ -57,6 +59,16 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected BitmapImage currentTexture;
 
+        public ScrollViewer ImageViewPort
+        {
+            get { return ImageViewPort; }
+            set
+            {
+                imageViewPort = value;
+            }
+        }
+        protected ScrollViewer imageViewPort;
+
         public Image CursorImage
         {
             get { return cursorImage; }
@@ -68,20 +80,28 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected Image cursorImage;
 
-        public Grid SpriteCollection
+        public Canvas SpriteCollection
         {
             get { return spriteCollection; }
             set { spriteCollection = value; }
         }
-        protected Grid spriteCollection;
+        protected Canvas spriteCollection;
 
-        protected int Scale = 1;
+        public int Scale
+        {
+            get { return scale; }
+        }
+        protected int scale = 1;
         protected Dictionary<Tools, BaseTool> tools;
         protected BaseTool currentTool;
+        protected int originalWidth;
+        protected int originalHeight;
         #endregion
 
         SpriteEditor()
         {
+            currentTexture = null;
+            tools = new Dictionary<Tools, BaseTool>();
             opfDialog = new OpenFileDialog();
             opfDialog.Title  =  "Select a texture";
             opfDialog.Filter =  "All supported graphics|*.jpg;*.jpeg;*.png|" +
@@ -97,6 +117,8 @@ namespace SpaghettiSpriteEditor.ViewModel
         #region Job
         public void StartJob(MouseButtonEventArgs e)
         {
+            if (currentTexture == null)
+                return;
             currentTool.StartJob(e);
         }
         public void DoJob(MouseEventArgs e)
@@ -110,13 +132,20 @@ namespace SpaghettiSpriteEditor.ViewModel
         #endregion
 
         #region Zoom
-        public void ZoomIn()
+        public bool Zoom(int setScale)
         {
+            if (setScale < 0.01 || setScale > 20)
+                return false;
 
-        }
-        public void ZoomOut()
-        {
+            scale = setScale;
+            imageDisplay.Width = originalWidth * scale;
+            imageDisplay.Height = originalHeight * scale;
+            foreach (SpriteCut cut in spriteCollection.Children)
+            {
+                cut.UpdateToScale();
+            }
 
+            return true;
         }
         #endregion
 
@@ -134,7 +163,6 @@ namespace SpaghettiSpriteEditor.ViewModel
                     currentTool = tools[Tools.Move];
                     break;
             }
-            ChangeCursorImage();
         }
         protected void ChangeCursorImage()
         {
@@ -159,6 +187,8 @@ namespace SpaghettiSpriteEditor.ViewModel
                 ImageDisplay.Source = CurrentTexture;
                 ImageDisplay.Width = CurrentTexture.Width;
                 ImageDisplay.Height = CurrentTexture.Height;
+                originalWidth = (int)currentTexture.Width;
+                originalHeight = (int)CurrentTexture.Height;
                 return true;
             }
 

@@ -8,26 +8,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="content">
-        <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="2" 
+                      x:Name="imageViewPort"
+                      HorizontalScrollBarVisibility="Auto" 
+                      VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Image x:Name="image" 
-                       RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                <Canvas x:Name="spritesCollector">
+                       RenderOptions.BitmapScalingMode="NearestNeighbor"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"/>
+                <Canvas x:Name="spritesCollection">
                     <Canvas.Resources>
                         <ResourceDictionary>
-                            <Style TargetType="Rectangle">
+                            <Style TargetType="local:SpriteCut">
                                 <Setter Property="VerticalAlignment" Value="Top"/>
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
-                                <Setter Property="StrokeThickness" Value="1"/>
-                                <Setter Property="StrokeDashCap" Value="Flat"/>
-                                <Setter Property="Stroke" Value="#7FFFFFFF"/>
-                                <Setter Property="StrokeDashArray" Value="1"/>
+                                <Setter Property="Foreground" Value="#7FFFFFFF"/>
                             </Style>
                         </ResourceDictionary>
                     </Canvas.Resources>
-
-                    <Rectangle Width="100" Height="100"
-                               Margin="100, 100, 0, 0"/>
                 </Canvas>
                 <Canvas x:Name="cursorCanvas"
                         Cursor="None"

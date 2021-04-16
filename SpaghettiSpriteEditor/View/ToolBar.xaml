@@ -28,8 +28,9 @@
                 </Style>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
-                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderThickness" Value="2"/>
                     <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                    <Setter Property="Padding" Value="3,3,3,3"/>
                     <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=Foreground}"/>
                 </Style>
             </StackPanel.Resources>
@@ -44,6 +45,14 @@
             <Border x:Name="moveButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
                 <ui:IconButton Text="Move" TextAlignment="Right" IconSource="{StaticResource Move}"/>
+            </Border>
+            <Border x:Name="zoomInButton" MouseDown="SelectTool"
+                    Background="{StaticResource Component}">
+                <ui:IconButton Text="Zoom In" TextAlignment="Right" IconSource="{StaticResource ZoomIn}"/>
+            </Border>
+            <Border x:Name="zoomOutButton" MouseDown="SelectTool"
+                    Background="{StaticResource Component}">
+                <ui:IconButton Text="Zoom Out" TextAlignment="Right" IconSource="{StaticResource ZoomOut}"/>
             </Border>
         </StackPanel>
         <Grid Grid.Row="1">

@@ -46,12 +46,25 @@ namespace SpaghettiSpriteEditor.View
             cursorCanvas.MouseDown += CanvasMouseDown;
             cursorCanvas.MouseUp += CanvasMouseUp;
             cursorCanvas.MouseMove += CanvasMousMove;
+            imageViewPort.ScrollChanged += ScrollToWholeNumer;
 
             content.DataContext = this;
             editor.ImageDisplay = image;
             editor.CursorImage = customCursor;
+            editor.SpriteCollection = spritesCollection;
+            editor.ImageViewPort = imageViewPort;
         }
-
+        private void ScrollToWholeNumer(object sender, ScrollChangedEventArgs e)
+        {
+            if (e.HorizontalOffset != (int)e.HorizontalOffset)
+            {
+                imageViewPort.ScrollToHorizontalOffset((int)(e.HorizontalOffset + 0.5));
+            }
+            if (e.VerticalOffset != (int)e.VerticalOffset)
+            {
+                imageViewPort.ScrollToVerticalOffset((int)(e.VerticalOffset + 0.5));
+            }
+        }
         private void CustomCusorMouseMove(object sender, MouseEventArgs e)
         {
             Point p = e.GetPosition(cursorCanvas);
@@ -75,15 +88,17 @@ namespace SpaghettiSpriteEditor.View
 
         private void CanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
+            cursorCanvas.CaptureMouse();
             editor.StartJob(e);
-        }
-        private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            editor.EndJob(e);
         }
         private void CanvasMousMove(object sender, MouseEventArgs e)
         {
             editor.DoJob(e);
+        }
+        private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            editor.EndJob(e);
+            cursorCanvas.ReleaseMouseCapture();
         }
     }
 }

@@ -12,13 +12,20 @@ namespace SpaghettiSpriteEditor.ViewModel
         protected SpriteEditor.Tools toolType = SpriteEditor.Tools.Invalid;
         protected SpriteEditor editor;
 
+        protected bool isStarted = false;
         public BaseTool()
         {
             editor = SpriteEditor.GetInstance();
         }
 
-        public abstract void StartJob(MouseButtonEventArgs e);
-        public abstract void EndJob(MouseButtonEventArgs e);
+        public virtual void StartJob(MouseButtonEventArgs e)
+        {
+            isStarted = true;
+        }
         public abstract void DoJob(MouseEventArgs e);
+        public virtual void EndJob(MouseButtonEventArgs e)
+        {
+            isStarted = false;
+        }
     }
 }
