@@ -123,6 +123,8 @@ namespace SpaghettiSpriteEditor.ViewModel
             selectedToolType = Tools.Zoom;
             tools.Add(Tools.Pencil, new PencilTool());
             tools.Add(Tools.Zoom, new ZoomTool());
+            tools.Add(Tools.Eraser, new EraserTool());
+            tools.Add(Tools.Move, new MoveTool());
             ChangeTool();
         }
         #region Job
