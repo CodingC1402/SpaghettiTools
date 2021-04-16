@@ -11,17 +11,17 @@
         <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Image x:Name="image" 
-                   RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                       RenderOptions.BitmapScalingMode="NearestNeighbor"/>
                 <Canvas x:Name="cursorCanvas"
-                Cursor="None"
-                MouseMove="CustomCusorMouseMove"
-                MouseLeave="cursorCanvas_MouseLeave"
-                MouseEnter="cursorCanvas_MouseEnter"
-                Background="Transparent">
+                        Cursor="None"
+                        MouseMove="CustomCusorMouseMove"
+                        MouseLeave="cursorCanvas_MouseLeave"
+                        MouseEnter="cursorCanvas_MouseEnter"
+                        Background="Transparent">
                     <Image x:Name="customCursor" RenderOptions.BitmapScalingMode="HighQuality"
-                   Width="{Binding CursorWidth}"
-                   Height="{Binding CursorHeight}"
-                   Source="{StaticResource Pencil}"/>
+                           Width="{Binding CursorWidth, FallbackValue=30}"
+                           Height="{Binding CursorHeight, FallbackValue=30}"
+                           Source="{StaticResource Pencil}"/>
                 </Canvas>
             </Grid>
         </ScrollViewer>

@@ -36,12 +36,20 @@ namespace SpaghettiSpriteEditor.View
         }
         protected int cursorHeight = 30;
 
+        SpriteEditor editor;
+
         public ImageView()
         {
             InitializeComponent();
+            editor = SpriteEditor.GetInstance();
+
+            cursorCanvas.MouseDown += CanvasMouseDown;
+            cursorCanvas.MouseUp += CanvasMouseUp;
+            cursorCanvas.MouseMove += CanvasMousMove;
+
             content.DataContext = this;
-            SpriteEditor.GetInstance().ImageDisplay = image;
-            SpriteEditor.GetInstance().CursorImage = customCursor;
+            editor.ImageDisplay = image;
+            editor.CursorImage = customCursor;
         }
 
         private void CustomCusorMouseMove(object sender, MouseEventArgs e)
@@ -63,6 +71,19 @@ namespace SpaghettiSpriteEditor.View
         private void cursorCanvas_MouseEnter(object sender, MouseEventArgs e)
         {
             customCursor.Visibility = Visibility.Visible;
+        }
+
+        private void CanvasMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            editor.StartJob(e);
+        }
+        private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            editor.EndJob(e);
+        }
+        private void CanvasMousMove(object sender, MouseEventArgs e)
+        {
+            editor.DoJob(e);
         }
     }
 }
