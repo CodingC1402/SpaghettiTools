@@ -16,25 +16,32 @@
                 <Setter Property="FontStretch" Value="{Binding FontStrecth}"/>
             </Style>
         </Grid.Resources>
-        <Rectangle StrokeThickness="1"
-                   StrokeDashArray="1"
+        <Rectangle StrokeThickness="2"
+                   StrokeDashArray="3"
                    StrokeDashCap="Flat"
                    Stroke="{Binding Foreground}">
         </Rectangle>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="indexText"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Right"
+            <Border VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Grid.Column="1"
+                    BorderThickness="2"
+                    BorderBrush="{Binding Foreground}"
+                    Padding="5, 1, 5, 1">
+                <TextBlock x:Name="indexText"
                        TextAlignment="Right"
                        Grid.Column="1"
                        Foreground="{Binding Foreground}"/>
+            </Border>
 
-            <StackPanel Grid.Column="0">
+
+            <StackPanel Grid.Column="0"
+                        Margin="3,3,3,3">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -67,7 +74,6 @@
                     </TextBlock>
                 </Grid>
             </StackPanel>
-
         </Grid>
     </Grid>
 </UserControl>

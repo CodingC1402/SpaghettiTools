@@ -4,4 +4,5 @@
     <BitmapImage x:Key="EraserCursor" UriSource="Cursor/eraser.png"/>
     <BitmapImage x:Key="PencilCursor" UriSource="Cursor/pencil.png"/>
     <BitmapImage x:Key="MoveCursor" UriSource="Cursor/move.png"/>
+    <BitmapImage x:Key="ZoomCursor" UriSource="Cursor/zoom.png"/>
 </ResourceDictionary>

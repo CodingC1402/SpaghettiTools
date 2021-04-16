@@ -21,9 +21,12 @@
                     <Canvas.Resources>
                         <ResourceDictionary>
                             <Style TargetType="local:SpriteCut">
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="VerticalAlignment" Value="Top"/>
                                 <Setter Property="HorizontalAlignment" Value="Left"/>
-                                <Setter Property="Foreground" Value="#7FFFFFFF"/>
+                                <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
+                                <Setter Property="Background" Value="#7F000000"/>
                             </Style>
                         </ResourceDictionary>
                     </Canvas.Resources>

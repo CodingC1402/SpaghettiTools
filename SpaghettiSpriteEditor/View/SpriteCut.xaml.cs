@@ -36,9 +36,9 @@ namespace SpaghettiSpriteEditor.View
             get { return height; }
             set
             {
-                height = value;
-                base.Height = value * SpriteEditor.GetInstance().Scale;
-                hText.Text = $"H:{value}";
+                height = (int)(value);
+                base.Height = height * SpriteEditor.GetInstance().Scale;
+                hText.Text = $"H:{height}";
             }
         }
         double height;
@@ -48,9 +48,9 @@ namespace SpaghettiSpriteEditor.View
             get { return width; }
             set
             {
-                width = value;
-                base.Width = value * SpriteEditor.GetInstance().Scale;
-                wText.Text = $"W:{value}";
+                width = (int)(value);
+                base.Width = width * SpriteEditor.GetInstance().Scale;
+                wText.Text = $"W:{width}";
             }
         }
         double width;
@@ -60,10 +60,11 @@ namespace SpaghettiSpriteEditor.View
             get { return position; }
             set
             {
-                position = value;
+                position.X = (int)(value.X);
+                position.Y = (int)(value.Y);
                 corXText.Text = $"X:{position.X}";
                 corYText.Text = $"Y:{position.Y}";
-                int scale = SpriteEditor.GetInstance().Scale;
+                double scale = SpriteEditor.GetInstance().Scale;
                 Margin = new Thickness(position.X * scale, position.Y * scale, 0, 0);
             }
         }
@@ -72,6 +73,7 @@ namespace SpaghettiSpriteEditor.View
         public SpriteCut()
         {
             InitializeComponent();
+            position = new Point(0, 0);
             VerticalAlignment = VerticalAlignment.Top;
             HorizontalAlignment = HorizontalAlignment.Left;
             Index = 0;
@@ -79,7 +81,7 @@ namespace SpaghettiSpriteEditor.View
 
         public void UpdateToScale()
         {
-            int scale = SpriteEditor.GetInstance().Scale;
+            double scale = SpriteEditor.GetInstance().Scale;
             base.Width = Width * scale;
             base.Height = Height * scale;
             base.Margin = new Thickness(Position.X * scale, Position.Y * scale, 0, 0);

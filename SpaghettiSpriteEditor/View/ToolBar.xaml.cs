@@ -27,7 +27,7 @@ namespace SpaghettiSpriteEditor.View
         {
             InitializeComponent();
 
-            switch (SpriteEditor.GetInstance().SelectedTool)
+            switch (SpriteEditor.GetInstance().SelectedToolType)
             {
                 case SpriteEditor.Tools.Eraser:
                     selectedToolButton = eraserButton;
@@ -37,6 +37,9 @@ namespace SpaghettiSpriteEditor.View
                     break;
                 case SpriteEditor.Tools.Move:
                     selectedToolButton = moveButton;
+                    break;
+                case SpriteEditor.Tools.Zoom:
+                    selectedToolButton = zoomButton;
                     break;
             }
             selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.ComponentSelected);
@@ -53,21 +56,26 @@ namespace SpaghettiSpriteEditor.View
 
         private void SelectTool(object sender, MouseButtonEventArgs e)
         {
+            SpriteEditor.Tools tool = SpriteEditor.Tools.Invalid;
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 if (sender == pencilButton)
                 {
-                    SpriteEditor.GetInstance().SelectedTool = SpriteEditor.Tools.Pencil;
+                    tool = SpriteEditor.Tools.Pencil;
                 }
                 else if (sender == eraserButton)
                 {
-                    SpriteEditor.GetInstance().SelectedTool = SpriteEditor.Tools.Eraser;
+                    tool = SpriteEditor.Tools.Eraser;
                 }
                 else if (sender == moveButton)
                 {
-                    SpriteEditor.GetInstance().SelectedTool = SpriteEditor.Tools.Move;
+                    tool = SpriteEditor.Tools.Move;
                 }
-
+                else if (sender == zoomButton)
+                {
+                    tool = SpriteEditor.Tools.Zoom;
+                }
+                SpriteEditor.GetInstance().SelectedToolType = tool;
                 selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.Component);
                 selectedToolButton = (Border)sender;
                 selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.ComponentSelected);
