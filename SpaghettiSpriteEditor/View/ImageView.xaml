@@ -12,6 +12,23 @@
             <Grid>
                 <Image x:Name="image" 
                        RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                <Canvas x:Name="spritesCollector">
+                    <Canvas.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Rectangle">
+                                <Setter Property="VerticalAlignment" Value="Top"/>
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                <Setter Property="StrokeThickness" Value="1"/>
+                                <Setter Property="StrokeDashCap" Value="Flat"/>
+                                <Setter Property="Stroke" Value="#7FFFFFFF"/>
+                                <Setter Property="StrokeDashArray" Value="1"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </Canvas.Resources>
+
+                    <Rectangle Width="100" Height="100"
+                               Margin="100, 100, 0, 0"/>
+                </Canvas>
                 <Canvas x:Name="cursorCanvas"
                         Cursor="None"
                         MouseMove="CustomCusorMouseMove"

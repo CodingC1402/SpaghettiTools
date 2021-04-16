@@ -9,7 +9,13 @@ namespace SpaghettiSpriteEditor.ViewModel
 {
     public abstract class BaseTool // Base class for tools
     {
-        SpriteEditor.Tools toolType;
+        protected SpriteEditor.Tools toolType = SpriteEditor.Tools.Invalid;
+        protected SpriteEditor editor;
+
+        public BaseTool()
+        {
+            editor = SpriteEditor.GetInstance();
+        }
 
         public abstract void StartJob(MouseButtonEventArgs e);
         public abstract void EndJob(MouseButtonEventArgs e);

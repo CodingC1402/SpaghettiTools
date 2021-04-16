@@ -18,7 +18,10 @@ namespace SpaghettiSpriteEditor.ViewModel
         public static SpriteEditor GetInstance()
         {
             if (__instance == null)
+            {
                 __instance = new SpriteEditor();
+                __instance.Init();
+            }
             return __instance;
         }
 
@@ -26,7 +29,8 @@ namespace SpaghettiSpriteEditor.ViewModel
         {
             Pencil,
             Eraser,
-            Move
+            Move,
+            Invalid
         }
         public Tools SelectedTool
         {
@@ -34,7 +38,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             set 
             { 
                 selectedTool = value;
-                ChangeCursorImage();
+                ChangeTool();
             }
         }
         protected Tools selectedTool;
@@ -64,8 +68,16 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected Image cursorImage;
 
+        public Grid SpriteCollection
+        {
+            get { return spriteCollection; }
+            set { spriteCollection = value; }
+        }
+        protected Grid spriteCollection;
+
         protected int Scale = 1;
-        protected BaseTool tool;
+        protected Dictionary<Tools, BaseTool> tools;
+        protected BaseTool currentTool;
         #endregion
 
         SpriteEditor()
@@ -75,22 +87,25 @@ namespace SpaghettiSpriteEditor.ViewModel
             opfDialog.Filter =  "All supported graphics|*.jpg;*.jpeg;*.png|" +
                                 "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
                                 "Portable Network Graphic (*.png)|*.png";
-            selectedTool = Tools.Pencil;
-            tool = new PencilTool();
         }
-
+        protected void Init()
+        {
+            selectedTool = Tools.Pencil;
+            tools.Add(Tools.Pencil, new PencilTool());
+            ChangeTool();
+        }
         #region Job
         public void StartJob(MouseButtonEventArgs e)
         {
-            tool.StartJob(e);
+            currentTool.StartJob(e);
         }
         public void DoJob(MouseEventArgs e)
         {
-            tool.DoJob(e);
+            currentTool.DoJob(e);
         }
         public void EndJob(MouseButtonEventArgs e)
         {
-            tool.EndJob(e);
+            currentTool.EndJob(e);
         }
         #endregion
 
@@ -105,6 +120,22 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         #endregion
 
+        protected void ChangeTool()
+        {
+            switch (selectedTool)
+            {
+                case Tools.Pencil:
+                    currentTool = tools[Tools.Pencil];
+                    break;
+                case Tools.Eraser:
+                    currentTool = tools[Tools.Eraser];
+                    break;
+                case Tools.Move:
+                    currentTool = tools[Tools.Move];
+                    break;
+            }
+            ChangeCursorImage();
+        }
         protected void ChangeCursorImage()
         {
             switch(selectedTool)
