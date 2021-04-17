@@ -55,15 +55,6 @@ namespace SpaghettiSpriteEditor.View
             viewModel.SelectTool(selectedToolButton);
         }
 
-        private void ImportImage(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                viewModel.LoadImage();
-                ((FlatButton)sender).IsMouseDown = false;
-            }
-        }
-
         private void SelectTool(object sender, MouseButtonEventArgs e)
         {
             viewModel.SelectTool(sender);

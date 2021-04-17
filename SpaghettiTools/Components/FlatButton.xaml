@@ -11,7 +11,7 @@
     <Grid x:Name="content">
         <Grid.Resources>
             <Style TargetType="Grid">
-                <Setter Property="Background" Value="{StaticResource ResourceKey=Component}"/>
+                <Setter Property="Background" Value="{Binding Background}"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Path=IsMouseOver}" Value="true">
                         <Setter Property="Background" Value="{StaticResource ResourceKey=ComponentHover}"/>

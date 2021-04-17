@@ -118,6 +118,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected Color _keyColor = Color.FromArgb(255, 255, 255, 255);
 
+        public TopBar TopBar { get; set; }
 
         protected Dictionary<Tools, BaseTool> tools;
         protected BaseTool currentTool;
@@ -147,19 +148,36 @@ namespace SpaghettiSpriteEditor.ViewModel
             ChangeTool();
         }
         #region Job
-        public void StartJob(MouseButtonEventArgs e)
+        public void StartJob(MouseButtonEventArgs e) // Mouse down
         {
             if (currentTexture == null)
                 return;
             currentTool.StartJob(e);
         }
-        public void DoJob(MouseEventArgs e)
+        public void DoJob(MouseEventArgs e) // Mouse move
         {
             if (currentTexture == null)
                 return;
+
+            Point position = e.GetPosition(ImageDisplay);
+            position.X = (int)(position.X / Scale);
+            position.Y = (int)(position.Y / Scale);
+
+            if (position.X < 0)
+                position.X = 0;
+            if (position.Y < 0)
+                position.Y = 0;
+            if (position.X > ImageDisplay.Width)
+                position.X = ImageDisplay.Width;
+            if (position.Y > ImageDisplay.Height)
+                position.Y = ImageDisplay.Height;
+
+            TopBar.xText.Text = position.X.ToString();
+            TopBar.yText.Text = position.Y.ToString();
+
             currentTool.DoJob(e);
         }
-        public void EndJob(MouseButtonEventArgs e)
+        public void EndJob(MouseButtonEventArgs e) // Mouse up
         {
             if (currentTexture == null)
                 return;

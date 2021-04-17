@@ -7,6 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="root">
+        <Image Source="{StaticResource Logo}"
+               RenderOptions.BitmapScalingMode="NearestNeighbor"
+               Stretch="Uniform"
+               Width="400"
+               Opacity="0.5"/>
         <ScrollViewer Grid.Column="2" 
                       x:Name="imageViewPort"
                       HorizontalScrollBarVisibility="Auto" 

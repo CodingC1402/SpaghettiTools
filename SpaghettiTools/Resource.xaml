@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Components/ScrollViewStyle.xaml"/>
         <ResourceDictionary Source="Theme/Theme.xaml"/>
+        <ResourceDictionary Source="Components/RectangleStyles.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

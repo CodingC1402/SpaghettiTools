@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="SpaghettiSpriteEditor.View.TopBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpaghettiSpriteEditor.View"
+             xmlns:ui="clr-namespace:SpaghettiTools.Components;assembly=SpaghettiTools"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="300">
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style x:Key="textBlock" TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="TextAlignment" Value="Center"/>
+                </Style>
+                <Style x:Key="seperator"
+                       TargetType="Rectangle">
+                    <Setter Property="Margin" Value="3, 4, 0, 4"/>
+                    <Setter Property="RadiusX" Value="1"/>
+                    <Setter Property="RadiusY" Value="1"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="Width" Value="1"/>
+                    <Setter Property="Stroke" Value="{StaticResource Foreground}"/>
+                </Style>
+            </ResourceDictionary>
+        </Grid.Resources>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="3"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="X:"
+                   Grid.Column="1"
+                   Style="{StaticResource textBlock}"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold"/>
+        <TextBlock x:Name="xText"
+                   Text="0"
+                   Grid.Column="2"
+                   Style="{StaticResource textBlock}"
+                   HorizontalAlignment="Right"/>
+        <Rectangle Grid.Column="3" Style="{StaticResource seperator}"/>
+        <TextBlock Text="Y:"
+                   Grid.Column="4"
+                   Style="{StaticResource textBlock}"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold"/>
+        <TextBlock x:Name="yText"
+                   Text="0"
+                   Grid.Column="5"
+                   Style="{StaticResource textBlock}"
+                   HorizontalAlignment="Right"/>
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="ui:FlatButton">
+                        <Setter Property="TextAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="3, 0, 0, 0"/>
+                        <Setter Property="Width" Value="45"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                </ResourceDictionary>
+            </StackPanel.Resources>
+            <ui:FlatButton Text="Open" MouseDown="OpenMouseDown"/>
+            <Rectangle Style="{StaticResource seperator}"/>
+            <ui:FlatButton Text="Import" MouseDown="ImportMouseDown"/>
+            <Rectangle Style="{StaticResource seperator}"/>
+            <ui:FlatButton Text="Export" MouseDown="ExportMouseDown"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

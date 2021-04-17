@@ -18,6 +18,7 @@
     <None Remove="Resource\Icon\colorPicker.png" />
     <None Remove="Resource\Icon\zoom.png" />
     <None Remove="Resource\import.png" />
+    <None Remove="Resource\Logo.png" />
     <None Remove="Resource\move.png" />
     <None Remove="Resource\pencil.png" />
   </ItemGroup>
@@ -40,6 +41,7 @@
     <Resource Include="Resource\Icon\edit.png" />
     <Resource Include="Resource\Icon\pencil.png" />
     <Resource Include="Resource\Icon\zoom.png" />
+    <Resource Include="Resource\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
