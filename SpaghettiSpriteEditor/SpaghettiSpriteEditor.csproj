@@ -14,6 +14,7 @@
     <None Remove="Resource\Cursor\zoom.png" />
     <None Remove="Resource\eraser.png" />
     <None Remove="Resource\export.png" />
+    <None Remove="Resource\Icon\colorPicker.png" />
     <None Remove="Resource\Icon\zoom.png" />
     <None Remove="Resource\import.png" />
     <None Remove="Resource\move.png" />
@@ -30,6 +31,7 @@
     <Resource Include="Resource\Cursor\move.png" />
     <Resource Include="Resource\Cursor\pencil.png" />
     <Resource Include="Resource\Cursor\zoom.png" />
+    <Resource Include="Resource\Icon\colorPicker.png" />
     <Resource Include="Resource\Icon\eraser.png" />
     <Resource Include="Resource\Icon\export.png" />
     <Resource Include="Resource\Icon\import.png" />
