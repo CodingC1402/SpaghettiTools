@@ -48,7 +48,8 @@ namespace SpaghettiSpriteEditor.View
             cursorCanvas.MouseMove += CanvasMousMove;
             imageViewPort.ScrollChanged += ScrollToWholeNumer;
 
-            content.DataContext = this;
+            root.DataContext = this;
+            editor.Content = content;
             editor.ImageDisplay = image;
             editor.CursorImage = customCursor;
             editor.SpriteCollection = spritesCollection;
@@ -64,7 +65,7 @@ namespace SpaghettiSpriteEditor.View
             if (e.VerticalOffset != (int)e.VerticalOffset)
             {
                 imageViewPort.ScrollToVerticalOffset((int)(e.VerticalOffset + 0.5));
-            }
+            } 
         }
         private void CustomCusorMouseMove(object sender, MouseEventArgs e)
         {

@@ -4,33 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SpaghettiSpriteEditor.View"
-             xmlns:ui="clr-namespace:SpaghettiTools.Components;assembly=SpaghettiTools"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="content">
+    <Grid x:Name="root">
         <ScrollViewer Grid.Column="2" 
                       x:Name="imageViewPort"
                       HorizontalScrollBarVisibility="Auto" 
                       VerticalScrollBarVisibility="Auto">
             <Grid>
-                <Image x:Name="image" 
+                <Grid x:Name="content" Width="Auto" Height="Auto"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center">
+                    <Image x:Name="image" 
                        RenderOptions.BitmapScalingMode="NearestNeighbor"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Left"/>
-                <Canvas x:Name="spritesCollection">
-                    <Canvas.Resources>
-                        <ResourceDictionary>
-                            <Style TargetType="local:SpriteCut">
-                                <Setter Property="FontSize" Value="15"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="VerticalAlignment" Value="Top"/>
-                                <Setter Property="HorizontalAlignment" Value="Left"/>
-                                <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
-                                <Setter Property="Background" Value="#7F000000"/>
-                            </Style>
-                        </ResourceDictionary>
-                    </Canvas.Resources>
-                </Canvas>
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+                    <Canvas x:Name="spritesCollection" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Width="{Binding ElementName=image, Path=Width}"
+                            Height="{Binding ElementName=image, Path=Height}">
+                        <Canvas.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="local:SpriteCut">
+                                    <Setter Property="FontSize" Value="15"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="VerticalAlignment" Value="Top"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
+                                    <Setter Property="Background" Value="#7F000000"/>
+                                </Style>
+                            </ResourceDictionary>
+                        </Canvas.Resources>
+                    </Canvas>
+                </Grid>
                 <Canvas x:Name="cursorCanvas"
                         Cursor="None"
                         MouseMove="CustomCusorMouseMove"

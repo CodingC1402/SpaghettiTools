@@ -42,7 +42,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         public override void Select()
         {
             base.Select();
-            editor.CursorContainer.Children.Insert(0, highLightPixel);
+            editor.Content.Children.Add(highLightPixel);
         }
         public override void StartJob(MouseButtonEventArgs e)
         {
@@ -78,6 +78,7 @@ namespace SpaghettiSpriteEditor.ViewModel
                 {
                     topLeft.X = origin.X;
                     bottomRight.X = point.X;
+                    point.X -= 0.001;
                 }
 
                 if (deltaY < 0)
@@ -89,10 +90,11 @@ namespace SpaghettiSpriteEditor.ViewModel
                 {
                     topLeft.Y = origin.Y;
                     bottomRight.Y = point.Y;
+                    point.Y -= 0.001;
                 }
 
-                bottomRight.X = (int)(bottomRight.X + 0.99);
-                bottomRight.Y = (int)(bottomRight.Y + 0.99);
+                bottomRight.X = (int)(bottomRight.X + 0.9999);
+                bottomRight.Y = (int)(bottomRight.Y + 0.9999);
                 topLeft.X = (int)topLeft.X;
                 topLeft.Y = (int)topLeft.Y;
 
@@ -127,7 +129,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         public override void Unselect()
         {
             base.Unselect();
-            editor.CursorContainer.Children.Remove(highLightPixel);
+            editor.Content.Children.Remove(highLightPixel);
         }
     }
 }

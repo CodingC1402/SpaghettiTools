@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using SpaghettiSpriteEditor.ViewModel;
-using SpaghettiSpriteEditor.Model;
+using SpaghettiTools.Theme;
 using SpaghettiTools.Components;
 
 namespace SpaghettiSpriteEditor.View
@@ -35,8 +35,8 @@ namespace SpaghettiSpriteEditor.View
                 case SpriteEditor.Tools.Pencil:
                     selectedToolButton = pencilButton;
                     break;
-                case SpriteEditor.Tools.Move:
-                    selectedToolButton = moveButton;
+                case SpriteEditor.Tools.Edit:
+                    selectedToolButton = editButton;
                     break;
                 case SpriteEditor.Tools.Zoom:
                     selectedToolButton = zoomButton;
@@ -67,9 +67,9 @@ namespace SpaghettiSpriteEditor.View
                 {
                     tool = SpriteEditor.Tools.Eraser;
                 }
-                else if (sender == moveButton)
+                else if (sender == editButton)
                 {
-                    tool = SpriteEditor.Tools.Move;
+                    tool = SpriteEditor.Tools.Edit;
                 }
                 else if (sender == zoomButton)
                 {

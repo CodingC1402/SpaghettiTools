@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using SpaghettiSpriteEditor.ViewModel;
+using SpaghettiTools.Theme;
 
 namespace SpaghettiSpriteEditor.View
 {
@@ -70,6 +71,7 @@ namespace SpaghettiSpriteEditor.View
         }
         protected Point position;
 
+
         public SpriteCut()
         {
             InitializeComponent();
@@ -77,6 +79,15 @@ namespace SpaghettiSpriteEditor.View
             VerticalAlignment = VerticalAlignment.Top;
             HorizontalAlignment = HorizontalAlignment.Left;
             Index = 0;
+        }
+
+        public void Select()
+        {
+            this.Foreground = (SolidColorBrush)this.FindResource(ThemeKey.ComponentSelected);
+        }
+        public void Unselect()
+        {
+            this.Foreground = (SolidColorBrush)this.FindResource(ThemeKey.Foreground);
         }
 
         public void UpdateToScale()
