@@ -10,6 +10,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Threading.Tasks;
 using SpaghettiSpriteEditor.View;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.IO;
 
 using SpaghettiTools.Utilities;
 
@@ -50,7 +53,6 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected Tools selectedToolType;
 
-        protected OpenFileDialog opfDialog;
         public Image ImageDisplay
         { 
             get { return imageDisplay; }
@@ -120,6 +122,9 @@ namespace SpaghettiSpriteEditor.ViewModel
 
         public TopBar TopBar { get; set; }
 
+        protected string imageName;
+        protected OpenFileDialog opfDialog;
+        protected SaveFileDialog sfDialog;
         protected Dictionary<Tools, BaseTool> tools;
         protected BaseTool currentTool;
         protected int originalWidth;
@@ -131,6 +136,8 @@ namespace SpaghettiSpriteEditor.ViewModel
         {
             currentTexture = null;
             tools = new Dictionary<Tools, BaseTool>();
+            sfDialog = new SaveFileDialog();
+            sfDialog.Filter = "Json|*.json";
             opfDialog = new OpenFileDialog();
             opfDialog.Title  =  "Select a texture";
             opfDialog.Filter =  "All supported graphics|*.jpg;*.jpeg;*.png|" +
@@ -280,6 +287,58 @@ namespace SpaghettiSpriteEditor.ViewModel
             _keyColor = imageBitmap.GetPixel((int)position.X, (int)position.Y);
         }
 
+        #region Load and export
+        public bool Import()
+        {
+            return true;
+        }
+
+        public bool Export()
+        {
+            if (CurrentTexture == null)
+                return false;
+
+            sfDialog.FileName = $"{imageName}.json";
+            if (sfDialog.ShowDialog() == true)
+            {
+                List<int[]> sprites = new List<int[]>();
+                foreach (SpriteCut cut in SpriteCollection.Children)
+                {
+                    sprites.Add(new int[4] { (int)cut.X, (int)cut.Y, (int)cut.Width, (int)cut.Height });
+                }
+
+                var data = new
+                {
+                    KeyColor = new
+                    {
+                        Red = _keyColor.R,
+                        Green = _keyColor.G,
+                        Blue = _keyColor.B
+                    },
+                    Sprites = sprites
+                };
+
+                var jsonString = JsonSerializer.Serialize(data);
+                if (sfDialog.OverwritePrompt)
+                {
+                    try
+                    {
+                        File.Delete(sfDialog.FileName);
+                    }
+                    catch (System.IO.IOException e)
+                    {
+                        MessageBox.Show(e.Message);
+                        return false;
+                    }
+                }
+                File.WriteAllText(sfDialog.FileName, jsonString);
+
+                return true;
+            }
+
+            return false;
+        }
+
         public bool LoadImage()
         {
             if(opfDialog.ShowDialog() == true)
@@ -298,11 +357,14 @@ namespace SpaghettiSpriteEditor.ViewModel
                 originalHeight = (int)ImageDisplay.Height;
 
                 imageBitmap = new Bitmap(new Uri(opfDialog.FileName));
+
+                imageName = Path.GetFileName(opfDialog.FileName);
                 return true;
             }
 
             return false;
         }
+        #endregion
 
         public int GetMouseOverIndex(Point position)
         {
