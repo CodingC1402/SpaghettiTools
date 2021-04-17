@@ -17,6 +17,11 @@
             <StackPanel.Resources>
                 <Style TargetType="ui:IconButton">
                     <Setter Property="Height" Value="35"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="10" Direction="0" ShadowDepth="3"/>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -28,90 +33,36 @@
             </StackPanel.Resources>
             <Border x:Name="pencilButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="Pencil" TextAlignment="Right" IconSource="{StaticResource Pencil}"/>
+                <ui:IconButton Text="Pencil" 
+                               TextAlignment="Right" 
+                               IconSource="{StaticResource Pencil}"
+                               Foreground="{StaticResource Foreground}"/>
             </Border>
             <Border x:Name="eraserButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="Eraser" TextAlignment="Right" IconSource="{StaticResource Eraser}"/>
+                <ui:IconButton Text="Eraser" 
+                               TextAlignment="Right" 
+                               IconSource="{StaticResource Eraser}"
+                               Foreground="{StaticResource Foreground}"/>
             </Border>
             <Border x:Name="zoomButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="Zoom" TextAlignment="Right" IconSource="{StaticResource Zoom}"/>
+                <ui:IconButton Text="Zoom" 
+                               TextAlignment="Right" 
+                               IconSource="{StaticResource Zoom}"
+                               Foreground="{StaticResource Foreground}"/>
+            </Border>
+            <Border x:Name="colorPickerButton" MouseDown="SelectTool"
+                    Background="{StaticResource Component}">
+                <ui:IconButton Text="ColorPicker" 
+                               x:Name="colorPickerContent"
+                               TextAlignment="Right" 
+                               IconSource="{StaticResource ColorPicker}"
+                               Foreground="{StaticResource Foreground}"/>
             </Border>
             <Border x:Name="editButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <StackPanel>
-                    <ui:IconButton Text="Edit" TextAlignment="Right" IconSource="{StaticResource Edit}"/>
-                    <Grid>
-                        <Grid.Resources>
-                            <ResourceDictionary>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
-                                </Style>
-                                <Style TargetType="TextBox">
-                                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="Background" Value="{StaticResource Background}"/>
-                                </Style>
-                            </ResourceDictionary>
-                        </Grid.Resources>
-                        
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="X:"/>
-                            <TextBox x:Name="xText" Grid.Column="1" Margin="0, 0, 3, 0"/>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Y:"/>
-                            <TextBox x:Name="yText" Grid.Column="1" Margin="0, 0, 3, 0"/>
-                        </Grid>
-                    </Grid>
-                    <Grid>
-                        <Grid.Resources>
-                            <ResourceDictionary>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
-                                </Style>
-                                <Style TargetType="TextBox">
-                                    <Setter Property="BorderBrush" Value="Transparent"/>
-                                    <Setter Property="Background" Value="{StaticResource Background}"/>
-                                </Style>
-                            </ResourceDictionary>
-                        </Grid.Resources>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="W:"/>
-                            <TextBox x:Name="wText" Grid.Column="1" Margin="0, 0, 3, 0"/>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="H:"/>
-                            <TextBox x:Name="hText" Grid.Column="1" Margin="0, 0, 3, 0"/>
-                        </Grid>
-                    </Grid>
-                </StackPanel>
+                <local:EditButton/>
             </Border>
         </StackPanel>
         <Grid Grid.Row="1">
@@ -120,16 +71,16 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <ui:FlatButton Text="Import" 
-                              Margin="0, 2, 0, 2"
-                              FontSize="12"
-                              TextAlignment="Center"
-                              MouseDown="ImportImage"/>
+                           Margin="0, 2, 0, 2"
+                           FontSize="12"
+                           TextAlignment="Center"
+                           MouseDown="ImportImage"/>
 
             <ui:FlatButton Text="Export" 
-                              Grid.Row="1"
-                              Margin="0, 2, 0, 2"
-                              FontSize="12"
-                              TextAlignment="Center"/>
+                           Grid.Row="1"
+                           Margin="0, 2, 0, 2"
+                           FontSize="12"
+                           TextAlignment="Center"/>
         </Grid>
     </Grid>
 </UserControl>

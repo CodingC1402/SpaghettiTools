@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
 
         <Rectangle x:Name="Pencil" Grid.Column="0"
-                   Fill="{StaticResource Foreground}">
+                   Fill="{Binding Foreground}">
             <Rectangle.OpacityMask>
                 <ImageBrush Stretch="Uniform" ImageSource="{Binding IconSource}"/>
             </Rectangle.OpacityMask>
@@ -21,7 +21,7 @@
 
         <TextBlock Grid.Column="1" x:Name="textBlock"
                    FontFamily="Tahoma"
-                   Foreground="{StaticResource Foreground}"
+                   Foreground="{Binding Foreground}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="5"

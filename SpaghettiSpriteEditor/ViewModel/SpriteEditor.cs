@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using Microsoft.Win32;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Threading.Tasks;
 using SpaghettiSpriteEditor.View;
 
@@ -34,6 +35,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             Eraser,
             Edit,
             Zoom,
+            ColorPicker,
             Invalid
         }
         public Tools SelectedToolType
@@ -109,10 +111,19 @@ namespace SpaghettiSpriteEditor.ViewModel
             get { return scale; }
         }
         protected double scale = 1;
+
+        public Color KeyColor
+        {
+            get { return _keyColor; }
+        }
+        protected Color _keyColor = Color.FromArgb(255, 255, 255, 255);
+
+
         protected Dictionary<Tools, BaseTool> tools;
         protected BaseTool currentTool;
         protected int originalWidth;
         protected int originalHeight;
+        protected Bitmap imageBitmap; // It's fuckingly stupid : ^) but I'm stupid too soo...
         #endregion
 
         SpriteEditor()
@@ -132,6 +143,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             tools.Add(Tools.Zoom, new ZoomTool());
             tools.Add(Tools.Eraser, new EraserTool());
             tools.Add(Tools.Edit, new EditTool());
+            tools.Add(Tools.ColorPicker, new ColorPickerTool());
             ChangeTool();
         }
         #region Job
@@ -197,6 +209,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         #endregion
 
+        #region Tools
         protected void ChangeTool()
         {
             if (currentTool != null)
@@ -214,6 +227,9 @@ namespace SpaghettiSpriteEditor.ViewModel
                     break;
                 case Tools.Zoom:
                     currentTool = tools[Tools.Zoom];
+                    break;
+                case Tools.ColorPicker:
+                    currentTool = tools[Tools.ColorPicker];
                     break;
             }
             currentTool.Select();
@@ -234,18 +250,36 @@ namespace SpaghettiSpriteEditor.ViewModel
                 case Tools.Zoom:
                     CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/zoom.png"));
                     break;
+                case Tools.ColorPicker:
+                    CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/colorPicker.png"));
+                    break;
             }
         }
+        #endregion
+
+        public void PickKeyColorAtCord(Point position)
+        {
+            _keyColor = imageBitmap.GetPixel((int)position.X, (int)position.Y);
+        }
+
         public bool LoadImage()
         {
             if(opfDialog.ShowDialog() == true)
             {
+                spriteCollection.Children.Clear();
+                ((ZoomTool)tools[Tools.Zoom]).Reset();
+                scale = 1;
+                _keyColor = Color.FromRgb(255, 255, 255);
+                ToolBarViewModel.GetInstance().ChangeColorPickerColor();
+
                 currentTexture = new BitmapImage(new Uri(opfDialog.FileName));
                 ImageDisplay.Source = CurrentTexture;
                 ImageDisplay.Width = (int)(CurrentTexture.PixelWidth);
                 ImageDisplay.Height = (int)(CurrentTexture.PixelHeight);
                 originalWidth = (int)ImageDisplay.Width;
                 originalHeight = (int)ImageDisplay.Height;
+
+                imageBitmap = new Bitmap(new Uri(opfDialog.FileName));
                 return true;
             }
 

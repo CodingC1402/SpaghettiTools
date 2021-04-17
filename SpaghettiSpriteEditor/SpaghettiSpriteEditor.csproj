@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resource\Cursor\colorPicker.png" />
     <None Remove="Resource\Cursor\edit.png" />
     <None Remove="Resource\Cursor\eraser.png" />
     <None Remove="Resource\Cursor\move.png" />
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resource\Cursor\colorPicker.png" />
     <Resource Include="Resource\Cursor\edit.png" />
     <Resource Include="Resource\Cursor\eraser.png" />
     <Resource Include="Resource\Cursor\move.png" />

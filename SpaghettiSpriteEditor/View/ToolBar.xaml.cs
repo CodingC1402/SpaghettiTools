@@ -34,6 +34,8 @@ namespace SpaghettiSpriteEditor.View
             viewModel.AddButton(pencilButton, SpriteEditor.Tools.Pencil);
             viewModel.AddButton(editButton, SpriteEditor.Tools.Edit);
             viewModel.AddButton(zoomButton, SpriteEditor.Tools.Zoom);
+            viewModel.AddButton(colorPickerButton, SpriteEditor.Tools.ColorPicker);
+            viewModel.EditButton = (EditButton)editButton.Child;
 
             switch (SpriteEditor.GetInstance().SelectedToolType)
             {

@@ -15,11 +15,13 @@ using System.Windows.Shapes;
 
 using SpaghettiSpriteEditor.ViewModel;
 using SpaghettiTools.Theme;
+using SpaghettiTools.Components;
 
 namespace SpaghettiSpriteEditor.View
 {
     public partial class SpriteCut : UserControl
     {
+        #region Properties
         public int Index
         {
             get { return index; }
@@ -32,12 +34,42 @@ namespace SpaghettiSpriteEditor.View
         }
         protected int index;
 
+        public double X
+        {
+            get { return Position.X; }
+            set
+            {
+                Position = new Point(value, Position.Y);
+            }
+        }
+
+        public double Y
+        {
+            get { return Position.Y; }
+            set
+            {
+                Position = new Point(Position.X, value);
+            }
+        }
+
+        public double BindHeight
+        { 
+            get { return Height; }
+            set { Height = value; }
+        }
+        public double BindWidth
+        {
+            get { return Width; }
+            set { Width = value; }
+        }
         public new double Height
         {
             get { return height; }
             set
             {
                 height = (int)(value);
+                if (height <= 0)
+                    height = 0;
                 base.Height = height * SpriteEditor.GetInstance().Scale;
                 hText.Text = $"H:{height}";
             }
@@ -50,6 +82,8 @@ namespace SpaghettiSpriteEditor.View
             set
             {
                 width = (int)(value);
+                if (width <= 0)
+                    width = 0;
                 base.Width = width * SpriteEditor.GetInstance().Scale;
                 wText.Text = $"W:{width}";
             }
@@ -70,7 +104,7 @@ namespace SpaghettiSpriteEditor.View
             }
         }
         protected Point position;
-
+        #endregion
 
         public SpriteCut()
         {
