@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Color x:Key="ForegroundColor" A="255" R="255" G="255" B="255"/>
-    <Color x:Key="BackgroundColor" A="255" R="18" G="18" B="18"/>
-    <Color x:Key="ComponentColor" A="255" R="50" G="50" B="50"/>
-    <Color x:Key="ComponentSelectedColor" A="255" R="32" G="150" B="200"/>
-    <Color x:Key="ComponentHoverColor" A="255" R="32" G="100" B="140"/>
+    <Color x:Key="BackgroundColor" A="255" R="30" G="30" B="40"/>
+    <Color x:Key="ComponentColor" A="255" R="50" G="50" B="70"/>
+    <Color x:Key="ComponentSelectedColor" A="255" R="32" G="150" B="240"/>
+    <Color x:Key="ComponentHoverColor" A="255" R="32" G="100" B="160"/>
     <SolidColorBrush x:Key="Foreground" Color="{StaticResource ResourceKey=ForegroundColor}"/>
     <SolidColorBrush x:Key="Background" Color="{StaticResource ResourceKey=BackgroundColor}"/>
     <SolidColorBrush x:Key="Component" Color="{StaticResource ResourceKey=ComponentColor}"/>

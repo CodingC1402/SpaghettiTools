@@ -32,7 +32,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         {
             Pencil,
             Eraser,
-            Move,
+            Edit,
             Zoom,
             Invalid
         }
@@ -97,6 +97,13 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected Canvas spriteCollection;
 
+        public Grid Content
+        {
+            get { return _content; }
+            set { _content = value; }
+        }
+        protected Grid _content;
+
         public double Scale
         {
             get { return scale; }
@@ -124,7 +131,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             tools.Add(Tools.Pencil, new PencilTool());
             tools.Add(Tools.Zoom, new ZoomTool());
             tools.Add(Tools.Eraser, new EraserTool());
-            tools.Add(Tools.Move, new MoveTool());
+            tools.Add(Tools.Edit, new EditTool());
             ChangeTool();
         }
         #region Job
@@ -175,12 +182,18 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected void UpdateToScale()
         {
+            double offSetX = imageViewPort.VerticalOffset / imageDisplay.Width;
+            double offSetY = imageViewPort.HorizontalOffset / imageDisplay.Height;
+
             imageDisplay.Width = (int)(originalWidth * scale + 0.5);
             imageDisplay.Height = (int)(originalHeight * scale + 0.5);
             foreach (SpriteCut cut in spriteCollection.Children)
             {
                 cut.UpdateToScale();
             }
+
+            imageViewPort.ScrollToVerticalOffset((int)(imageDisplay.Width * offSetX + 0.5));
+            imageViewPort.ScrollToHorizontalOffset((int)(imageDisplay.Height * offSetY + 0.5));
         }
         #endregion
 
@@ -196,8 +209,8 @@ namespace SpaghettiSpriteEditor.ViewModel
                 case Tools.Eraser:
                     currentTool = tools[Tools.Eraser];
                     break;
-                case Tools.Move:
-                    currentTool = tools[Tools.Move];
+                case Tools.Edit:
+                    currentTool = tools[Tools.Edit];
                     break;
                 case Tools.Zoom:
                     currentTool = tools[Tools.Zoom];
@@ -215,8 +228,8 @@ namespace SpaghettiSpriteEditor.ViewModel
                 case Tools.Eraser:
                     CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/eraser.png"));
                     break;
-                case Tools.Move:
-                    CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/move.png"));
+                case Tools.Edit:
+                    CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/edit.png"));
                     break;
                 case Tools.Zoom:
                     CursorImage.Source = new BitmapImage(new Uri("pack://application:,,,/SpaghettiSpriteEditor;component/Resource/Cursor/zoom.png"));
@@ -237,6 +250,32 @@ namespace SpaghettiSpriteEditor.ViewModel
             }
 
             return false;
+        }
+
+        public int GetMouseOverIndex(Point position)
+        {
+            position.X = (int)(position.X / Scale);
+            position.Y = (int)(position.Y / Scale);
+            int index = -1;
+            int size = SpriteCollection.Children.Count;
+            SpriteCut child;
+            do
+            {
+                index++;
+                if (index >= size)
+                {
+                    return -1;
+                }
+                child = (SpriteCut)SpriteCollection.Children[index];
+                if (child.Position.X <= position.X && (child.Position.X + child.Width >= position.X) &&
+                    child.Position.Y <= position.Y && (child.Position.Y + child.Height >= position.Y))
+                {
+                    break;
+                }
+            }
+            while (true);
+
+            return index;
         }
     }
 }

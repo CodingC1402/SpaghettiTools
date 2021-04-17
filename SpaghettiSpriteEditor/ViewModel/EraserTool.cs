@@ -17,14 +17,14 @@ namespace SpaghettiSpriteEditor.ViewModel
         public override void StartJob(MouseButtonEventArgs e)
         {
             base.StartJob(e);
-            EraseIndexAndUpdate(GetMouseOverIndex(e.GetPosition(editor.SpriteCollection)));
+            EraseIndexAndUpdate(editor.GetMouseOverIndex(e.GetPosition(editor.SpriteCollection)));
         }
         public override void DoJob(MouseEventArgs e)
         {
             if (!isStarted)
                 return;
 
-            EraseIndexAndUpdate(GetMouseOverIndex(e.GetPosition(editor.SpriteCollection)));
+            EraseIndexAndUpdate(editor.GetMouseOverIndex(e.GetPosition(editor.SpriteCollection)));
         }
 
         public override void EndJob(MouseButtonEventArgs e)
@@ -32,31 +32,6 @@ namespace SpaghettiSpriteEditor.ViewModel
             base.EndJob(e);
         }
 
-        protected int GetMouseOverIndex(Point position)
-        {
-            position.X = (int)(position.X / editor.Scale);
-            position.Y = (int)(position.Y / editor.Scale);
-            int index = -1;
-            int size = editor.SpriteCollection.Children.Count;
-            SpriteCut child;
-            do
-            {
-                index++;
-                if (index >= size)
-                {
-                    return -1;
-                }
-                child = (SpriteCut)editor.SpriteCollection.Children[index];
-                if (child.Position.X <= position.X && (child.Position.X + child.Width >= position.X) &&
-                    child.Position.Y <= position.Y && (child.Position.Y + child.Height >= position.Y))
-                {
-                    break;
-                }
-            }
-            while (true);
-
-            return index;
-        }
         protected void EraseIndexAndUpdate(int index)
         {
             if (index < 0)

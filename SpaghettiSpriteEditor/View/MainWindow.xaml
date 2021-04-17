@@ -9,7 +9,7 @@
         Background="{StaticResource ResourceKey=Background}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="120" MinWidth="100" MaxWidth="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
@@ -21,7 +21,10 @@
                                   Direction="0"/>
             </Rectangle.Effect>
         </Rectangle>
-        <local:ToolBar Grid.Column="0"/>
+        <GridSplitter Grid.Column="0" 
+                      Width="3"
+                      Background="#7F000000"/>
+        <local:ToolBar Grid.Column="0" Margin="0, 0, 3, 0"/>
         <Rectangle Fill="{StaticResource ResourceKey=Background}"
                    Grid.Column="1"
                    VerticalAlignment="Bottom"

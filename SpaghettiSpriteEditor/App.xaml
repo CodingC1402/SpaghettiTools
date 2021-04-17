@@ -6,8 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Model/Theme.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/SpaghettiTools;component/Components.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SpaghettiTools;component/Resource.xaml"/>
                 <ResourceDictionary Source="Resource/Icon.xaml"/>
                 <ResourceDictionary Source="Resource/Cursor.xaml"/>
             </ResourceDictionary.MergedDictionaries>

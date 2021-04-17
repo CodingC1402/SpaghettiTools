@@ -8,14 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="100"
              x:Name="root">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Model/Theme.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -24,7 +16,7 @@
         <StackPanel Grid.Row="0" Margin="5">
             <StackPanel.Resources>
                 <Style TargetType="ui:IconButton">
-                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="Height" Value="35"/>
                 </Style>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -42,13 +34,84 @@
                     Background="{StaticResource Component}">
                 <ui:IconButton Text="Eraser" TextAlignment="Right" IconSource="{StaticResource Eraser}"/>
             </Border>
-            <Border x:Name="moveButton" MouseDown="SelectTool"
-                    Background="{StaticResource Component}">
-                <ui:IconButton Text="Move" TextAlignment="Right" IconSource="{StaticResource Move}"/>
-            </Border>
             <Border x:Name="zoomButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
                 <ui:IconButton Text="Zoom" TextAlignment="Right" IconSource="{StaticResource Zoom}"/>
+            </Border>
+            <Border x:Name="editButton" MouseDown="SelectTool"
+                    Background="{StaticResource Component}">
+                <StackPanel>
+                    <ui:IconButton Text="Edit" TextAlignment="Right" IconSource="{StaticResource Edit}"/>
+                    <Grid>
+                        <Grid.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
+                                </Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Background" Value="{StaticResource Background}"/>
+                                </Style>
+                            </ResourceDictionary>
+                        </Grid.Resources>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="X:"/>
+                            <TextBox x:Name="xText" Grid.Column="1" Margin="0, 0, 3, 0"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Y:"/>
+                            <TextBox x:Name="yText" Grid.Column="1" Margin="0, 0, 3, 0"/>
+                        </Grid>
+                    </Grid>
+                    <Grid>
+                        <Grid.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
+                                </Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                    <Setter Property="Background" Value="{StaticResource Background}"/>
+                                </Style>
+                            </ResourceDictionary>
+                        </Grid.Resources>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="W:"/>
+                            <TextBox x:Name="wText" Grid.Column="1" Margin="0, 0, 3, 0"/>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="H:"/>
+                            <TextBox x:Name="hText" Grid.Column="1" Margin="0, 0, 3, 0"/>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
             </Border>
         </StackPanel>
         <Grid Grid.Row="1">
