@@ -85,5 +85,10 @@ namespace SpaghettiSpriteEditor.ViewModel
             if (!isStarted)
                 return;
         }
+
+        public void Reset()
+        {
+            firstTime = true;
+        }
     }
 }

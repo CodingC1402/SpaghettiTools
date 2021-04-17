@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="SpaghettiSpriteEditor.View.EditButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpaghettiSpriteEditor.View"
+                          xmlns:ui="clr-namespace:SpaghettiTools.Components;assembly=SpaghettiTools"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="150">
+    
+    <StackPanel>
+        <StackPanel.Resources>
+            <ResourceDictionary>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Foreground" Value="{StaticResource Foreground}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Background" Value="{StaticResource Background}"/>
+                    <Setter Property="TextAlignment" Value="Right"/>
+                </Style>
+            </ResourceDictionary>
+        </StackPanel.Resources>
+        <ui:IconButton Text="Edit" 
+                       TextAlignment="Right" 
+                       IconSource="{StaticResource Edit}"
+                       Foreground="{StaticResource Foreground}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="X:"/>
+                <TextBox x:Name="xText" Grid.Column="1" Margin="0, 0, 3, 0"
+                         Text="{Binding X, Converter={StaticResource DoubleStringConverter}, FallbackValue=0, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="CheckKeyDown"
+                         DataObject.Pasting="CheckPasting"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Y:"/>
+                <TextBox x:Name="yText" Grid.Column="1" Margin="0, 0, 3, 0"
+                         Text="{Binding Y, Converter={StaticResource DoubleStringConverter}, FallbackValue=0, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="CheckKeyDown"
+                         DataObject.Pasting="CheckPasting"/>
+            </Grid>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="W:"/>
+                <TextBox x:Name="wText" Grid.Column="1" Margin="0, 0, 3, 0"
+                         Text="{Binding BindWidth, Converter={StaticResource DoubleStringConverter}, FallbackValue=0, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="CheckKeyDown"
+                         DataObject.Pasting="CheckPasting"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="H:"/>
+                <TextBox x:Name="hText" Grid.Column="1" Margin="0, 0, 3, 0"
+                         Text="{Binding BindHeight, Converter={StaticResource DoubleStringConverter}, FallbackValue=0, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="CheckKeyDown"
+                         DataObject.Pasting="CheckPasting"/>
+            </Grid>
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -6,4 +6,5 @@
     <BitmapImage x:Key="Import" UriSource="Icon/import.png"/>
     <BitmapImage x:Key="Export" UriSource="Icon/export.png"/>
     <BitmapImage x:Key="Zoom" UriSource="Icon/zoom.png"/>
+    <BitmapImage x:Key="ColorPicker" UriSource="Icon/colorPicker.png"/>
 </ResourceDictionary>
