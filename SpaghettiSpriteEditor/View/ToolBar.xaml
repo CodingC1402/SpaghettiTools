@@ -8,79 +8,73 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="100"
              x:Name="root">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="5">
-            <StackPanel.Resources>
-                <Style TargetType="ui:IconButton">
-                    <Setter Property="Height" Value="35"/>
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect BlurRadius="10" Direction="0" ShadowDepth="3"/>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                    <Setter Property="Margin" Value="0, 0, 0, 10"/>
-                    <Setter Property="Padding" Value="3,3,3,3"/>
-                    <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=Foreground}"/>
-                </Style>
-            </StackPanel.Resources>
-            <Border x:Name="pencilButton" MouseDown="SelectTool"
+    <StackPanel Grid.Row="0" Margin="5, 0, 5, 5">
+        <StackPanel.Resources>
+            <Style TargetType="ui:IconButton">
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="10" Direction="0" ShadowDepth="3"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="Margin" Value="0, 10, 0, 10"/>
+                <Setter Property="Padding" Value="3,3,3,3"/>
+                <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=Foreground}"/>
+            </Style>
+            <Style x:Key="seperator"
+                   TargetType="Rectangle">
+                <Setter Property="Margin" Value="4, 0, 4, 0"/>
+                <Setter Property="RadiusX" Value="1"/>
+                <Setter Property="RadiusY" Value="1"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Height" Value="1"/>
+                <Setter Property="Stroke" Value="{StaticResource Foreground}"/>
+            </Style>
+        </StackPanel.Resources>
+        <Border x:Name="pencilButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="Pencil" 
+            <ui:IconButton Text="Pencil" 
                                TextAlignment="Right" 
                                IconSource="{StaticResource Pencil}"
                                Foreground="{StaticResource Foreground}"/>
-            </Border>
-            <Border x:Name="eraserButton" MouseDown="SelectTool"
+        </Border>
+        <Rectangle Style="{StaticResource seperator}"/>
+        
+        <Border x:Name="eraserButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="Eraser" 
+            <ui:IconButton Text="Eraser" 
                                TextAlignment="Right" 
                                IconSource="{StaticResource Eraser}"
                                Foreground="{StaticResource Foreground}"/>
-            </Border>
-            <Border x:Name="zoomButton" MouseDown="SelectTool"
+        </Border>
+        <Rectangle Style="{StaticResource seperator}"/>
+        
+        <Border x:Name="zoomButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="Zoom" 
+            <ui:IconButton Text="Zoom" 
                                TextAlignment="Right" 
                                IconSource="{StaticResource Zoom}"
                                Foreground="{StaticResource Foreground}"/>
-            </Border>
-            <Border x:Name="colorPickerButton" MouseDown="SelectTool"
+        </Border>
+        <Rectangle Style="{StaticResource seperator}"/>
+        
+        <Border x:Name="colorPickerButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <ui:IconButton Text="ColorPicker" 
+            <ui:IconButton Text="ColorPicker" 
                                x:Name="colorPickerContent"
                                TextAlignment="Right" 
                                IconSource="{StaticResource ColorPicker}"
                                Foreground="{StaticResource Foreground}"/>
-            </Border>
-            <Border x:Name="editButton" MouseDown="SelectTool"
+        </Border>
+        <Rectangle Style="{StaticResource seperator}"/>
+        
+        <Border x:Name="editButton" MouseDown="SelectTool"
                     Background="{StaticResource Component}">
-                <local:EditButton/>
-            </Border>
-        </StackPanel>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <ui:FlatButton Text="Import" 
-                           Margin="0, 2, 0, 2"
-                           FontSize="12"
-                           TextAlignment="Center"
-                           MouseDown="ImportImage"/>
-
-            <ui:FlatButton Text="Export" 
-                           Grid.Row="1"
-                           Margin="0, 2, 0, 2"
-                           FontSize="12"
-                           TextAlignment="Center"/>
-        </Grid>
-    </Grid>
+            <local:EditButton/>
+        </Border>
+    </StackPanel>
 </UserControl>
