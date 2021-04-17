@@ -45,7 +45,7 @@
                     <Image x:Name="customCursor" RenderOptions.BitmapScalingMode="HighQuality"
                            Width="{Binding CursorWidth, FallbackValue=30}"
                            Height="{Binding CursorHeight, FallbackValue=30}"
-                           Source="{StaticResource Pencil}"/>
+                           Source="{StaticResource Pencil}" Canvas.Left="-32" Canvas.Top="-37"/>
                 </Canvas>
             </Grid>
         </ScrollViewer>

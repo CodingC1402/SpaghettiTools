@@ -21,11 +21,19 @@ namespace SpaghettiSpriteEditor.View
 {
     public partial class ToolBar : UserControl
     {
-        Border selectedToolButton;
+        protected ToolBarViewModel viewModel;
 
         public ToolBar()
         {
             InitializeComponent();
+            ToolBarViewModel.GetInstance().UI = this;
+            Border selectedToolButton = null;
+
+            viewModel = ToolBarViewModel.GetInstance();
+            viewModel.AddButton(eraserButton, SpriteEditor.Tools.Eraser);
+            viewModel.AddButton(pencilButton, SpriteEditor.Tools.Pencil);
+            viewModel.AddButton(editButton, SpriteEditor.Tools.Edit);
+            viewModel.AddButton(zoomButton, SpriteEditor.Tools.Zoom);
 
             switch (SpriteEditor.GetInstance().SelectedToolType)
             {
@@ -42,44 +50,21 @@ namespace SpaghettiSpriteEditor.View
                     selectedToolButton = zoomButton;
                     break;
             }
-            selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.ComponentSelected);
+            viewModel.SelectTool(selectedToolButton);
         }
 
         private void ImportImage(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                SpriteEditor.GetInstance().LoadImage();
+                viewModel.LoadImage();
                 ((FlatButton)sender).IsMouseDown = false;
             }
         }
 
         private void SelectTool(object sender, MouseButtonEventArgs e)
         {
-            SpriteEditor.Tools tool = SpriteEditor.Tools.Invalid;
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                if (sender == pencilButton)
-                {
-                    tool = SpriteEditor.Tools.Pencil;
-                }
-                else if (sender == eraserButton)
-                {
-                    tool = SpriteEditor.Tools.Eraser;
-                }
-                else if (sender == editButton)
-                {
-                    tool = SpriteEditor.Tools.Edit;
-                }
-                else if (sender == zoomButton)
-                {
-                    tool = SpriteEditor.Tools.Zoom;
-                }
-                SpriteEditor.GetInstance().SelectedToolType = tool;
-                selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.Component);
-                selectedToolButton = (Border)sender;
-                selectedToolButton.Background = (Brush)this.FindResource(ThemeKey.ComponentSelected);
-            }
+            viewModel.SelectTool(sender);
         }
     }
 }
