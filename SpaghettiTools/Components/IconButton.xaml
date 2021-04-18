@@ -14,7 +14,8 @@
         </Grid.ColumnDefinitions>
 
         <Rectangle x:Name="Pencil" Grid.Column="0"
-                   Fill="{Binding Foreground}">
+                   Fill="{Binding Foreground}"
+                   RenderOptions.BitmapScalingMode="HighQuality">
             <Rectangle.OpacityMask>
                 <ImageBrush Stretch="Uniform" ImageSource="{Binding IconSource}"/>
             </Rectangle.OpacityMask>

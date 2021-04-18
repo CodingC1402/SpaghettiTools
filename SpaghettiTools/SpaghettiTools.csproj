@@ -6,6 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resource\Loading.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resource\Loading.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Components\FlatButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -14,81 +14,28 @@ namespace SpaghettiSpriteEditor.ViewModel
 {
     public class ZoomTool : BaseTool
     {
-        int zoomSpeed = 20;
-
-        Point origin;
-        Point old;
-        Point current;
-        int deltaY;
-        bool firstTime = false;
         public ZoomTool() : base()
         {
             toolType = SpriteEditor.Tools.Zoom;
         }
         public override void StartJob(MouseButtonEventArgs e)
         {
+            if (isStarted)
+                return;
             base.StartJob(e);
-            if (!firstTime)
-            {
-                firstTime = true;
-                origin = e.GetPosition(editor.ImageViewPort);
-                current = origin;
-                old = current;
-                deltaY = 0;
-            }
-            else
-            {
-                double deltaX = current.X - origin.X;
-                double deltaY = current.Y - origin.Y;
-                current = e.GetPosition(editor.ImageViewPort);
-                old = current;
-                origin.X = current.X - deltaX;
-                origin.Y = current.Y - deltaY;
-            }
+            if (e.LeftButton == MouseButtonState.Pressed)
+                editor.ZoomIn();
+            if (e.RightButton == MouseButtonState.Pressed)
+                editor.ZoomOut();
         }
         public override void DoJob(MouseEventArgs e)
-        {
-            if (!isStarted)
-                return;
-
-            current = e.GetPosition(editor.ImageViewPort);
-
-            deltaY = (int)(current.Y - origin.Y);
-            int scale = (Math.Abs(deltaY) / zoomSpeed + 1);
-            if (deltaY == 0)
-            {
-                editor.ZoomIn(1);
-            }
-            else if (deltaY < 0)
-            {
-                if (!editor.ZoomIn(scale))
-                {
-                    current = old;
-                    return;
-                }
-            }
-            else
-            {
-                if (!editor.ZoomOut(scale))
-                {
-                    current = old;
-                    return;
-                }
-            }
-
-            old = current;
-        }
+        {}
 
         public override void EndJob(MouseButtonEventArgs e)
         {
             base.EndJob(e);
             if (!isStarted)
                 return;
-        }
-
-        public void Reset()
-        {
-            firstTime = true;
         }
     }
 }
