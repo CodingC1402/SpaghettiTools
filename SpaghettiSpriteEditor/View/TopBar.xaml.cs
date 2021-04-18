@@ -36,11 +36,17 @@ namespace SpaghettiSpriteEditor.View
         }
         private void ImportMouseDown(object sender, MouseButtonEventArgs e)
         {
+            SpriteEditor.GetInstance().Import();
             ((ButtonBase)sender).IsMouseDown = false;
         }
         private void ExportMouseDown(object sender, MouseButtonEventArgs e)
         {
             SpriteEditor.GetInstance().Export();
+            ((ButtonBase)sender).IsMouseDown = false;
+        }
+        private void SliceMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SpriteEditor.GetInstance().AutoSliceSprite();
             ((ButtonBase)sender).IsMouseDown = false;
         }
     }

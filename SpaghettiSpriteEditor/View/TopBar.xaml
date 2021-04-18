@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SpaghettiSpriteEditor.View"
              xmlns:ui="clr-namespace:SpaghettiTools.Components;assembly=SpaghettiTools"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="300">
+             d:DesignHeight="30" d:DesignWidth="400">
     <Grid>
         <Grid.Resources>
             <ResourceDictionary>
@@ -77,6 +77,8 @@
             <ui:FlatButton Text="Import" MouseDown="ImportMouseDown"/>
             <Rectangle Style="{StaticResource seperator}"/>
             <ui:FlatButton Text="Export" MouseDown="ExportMouseDown"/>
+            <Rectangle Style="{StaticResource seperator}"/>
+            <ui:FlatButton Text="Slice" MouseDown="SliceMouseDown"/>
         </StackPanel>
     </Grid>
 </UserControl>
