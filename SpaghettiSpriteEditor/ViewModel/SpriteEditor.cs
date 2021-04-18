@@ -121,6 +121,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         protected Color _keyColor = Color.FromArgb(255, 255, 255, 255);
 
         public TopBar TopBar { get; set; }
+        public MainWindow MainWindow { get; set; }
 
         protected string imageName;
         protected OpenFileDialog opfDialog;
@@ -395,8 +396,55 @@ namespace SpaghettiSpriteEditor.ViewModel
 
         public void AutoSliceSprite()
         {
+            if (currentTexture == null)
+                return;
+
             AutoSliceWindow wnd = new AutoSliceWindow();
-            wnd.Show();
+            wnd.Owner = MainWindow;
+            if (wnd.ShowDialog() == true)
+            {
+                int spriteWidth = int.Parse(wnd.widthText.Text);
+                int spriteHeight = int.Parse(wnd.heightText.Text);
+
+                int offSetLeft = int.Parse(wnd.leftOffSet.Text);
+                int offSetRight = int.Parse(wnd.rightOffSet.Text);
+                int offSetTop = int.Parse(wnd.topOffSet.Text);
+                int offSetBottom = int.Parse(wnd.bottomOffSet.Text);
+
+                int gridWidth = offSetTop + offSetBottom + spriteHeight;
+                int gridHeight = offSetLeft + offSetRight + spriteWidth;
+                if (gridWidth <= 0 || gridHeight <= 0)
+                {
+                    MessageBox.Show("Invalid input number");
+                    return;
+                }
+
+                int cutRow = (int)(originalHeight / gridHeight);
+                int cutCol = (int)(originalWidth / gridWidth);
+
+                // If there is a single avaliable sprite it will clear all other sprite
+                if (cutRow == 0 || cutCol == 0)
+                    return;
+
+                SpriteCollection.Children.Clear();
+                SpriteCut sprite;
+                int index = 0;
+
+                for (int row = 0; row < cutRow; row++)
+                {
+                    int offSetRow = gridHeight * row + offSetTop + offSetBottom * row;
+                    for (int col = 0; col < cutCol; col++)
+                    {
+                        sprite = new SpriteCut();
+                        sprite.Position = new Point(gridWidth * col + offSetLeft + offSetRight * col, offSetRow);
+                        sprite.Width = spriteWidth;
+                        sprite.Height = spriteHeight;
+                        sprite.Index = index;
+                        spriteCollection.Children.Add(sprite);
+                        index++;
+                    }
+                }
+            }
         }
 
         public void PickKeyColorAtCord(Point position)
