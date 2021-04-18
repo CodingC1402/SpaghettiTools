@@ -43,6 +43,7 @@ namespace SpaghettiSpriteEditor.ViewModel
                     editingIndex = index;
                     editingSprite = (SpriteCut)editor.SpriteCollection.Children[editingIndex];
                     editingSprite.Select();
+
                     toolBar.EditButton.DataContext = editingSprite;
                 }
 
@@ -70,15 +71,21 @@ namespace SpaghettiSpriteEditor.ViewModel
                 newPosition.Y = (int)(editingSprite.Y + (point.Y - oldPoint.Y));
                 editingSprite.Position = newPosition;
 
-                toolBar.EditButton.xText.Text = newPosition.X.ToString();
-                toolBar.EditButton.yText.Text = newPosition.Y.ToString();
-
                 oldPoint = point;
             }
         }
         public override void EndJob(MouseButtonEventArgs e)
         {
             base.EndJob(e);
+            
+            if (editingSprite != null)
+            {
+                using (var d = toolBar.EditButton.Dispatcher.DisableProcessing())
+                {
+                    toolBar.EditButton.xText.Text = editingSprite.X.ToString();
+                    toolBar.EditButton.yText.Text = editingSprite.Y.ToString();
+                }
+            }
         }
         public override void Unselect()
         {

@@ -10,6 +10,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Threading.Tasks;
 using SpaghettiSpriteEditor.View;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IO;
 
 using SpaghettiTools.Utilities;
 
@@ -50,7 +53,6 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         protected Tools selectedToolType;
 
-        protected OpenFileDialog opfDialog;
         public Image ImageDisplay
         { 
             get { return imageDisplay; }
@@ -120,6 +122,10 @@ namespace SpaghettiSpriteEditor.ViewModel
 
         public TopBar TopBar { get; set; }
 
+        protected string imageName;
+        protected OpenFileDialog opfDialog;
+        protected SaveFileDialog sfDialog;
+        protected OpenFileDialog opfJsonDialog;
         protected Dictionary<Tools, BaseTool> tools;
         protected BaseTool currentTool;
         protected int originalWidth;
@@ -131,6 +137,10 @@ namespace SpaghettiSpriteEditor.ViewModel
         {
             currentTexture = null;
             tools = new Dictionary<Tools, BaseTool>();
+            opfJsonDialog = new OpenFileDialog();
+            opfJsonDialog.Filter = "json|*.json";
+            sfDialog = new SaveFileDialog();
+            sfDialog.Filter = "Json|*.json";
             opfDialog = new OpenFileDialog();
             opfDialog.Title  =  "Select a texture";
             opfDialog.Filter =  "All supported graphics|*.jpg;*.jpeg;*.png|" +
@@ -275,9 +285,85 @@ namespace SpaghettiSpriteEditor.ViewModel
         }
         #endregion
 
-        public void PickKeyColorAtCord(Point position)
+        #region Load and export
+        public bool Import()
         {
-            _keyColor = imageBitmap.GetPixel((int)position.X, (int)position.Y);
+            if (CurrentTexture == null)
+                return false;
+
+            if (opfJsonDialog.ShowDialog() == true)
+            {
+                JObject data = JObject.Parse(File.ReadAllText(opfJsonDialog.FileName));
+                _keyColor.A = 255;
+                _keyColor.R = data["KeyColor"]["Red"].ToObject<byte>();
+                _keyColor.G = data["KeyColor"]["Green"].ToObject<byte>();
+                _keyColor.B = data["KeyColor"]["Blue"].ToObject<byte>();
+
+                List<int[]> sprites = data["Sprites"].ToObject<List<int[]>>();
+                int index = SpriteCollection.Children.Count;
+                foreach(int[] sprite in sprites)
+                {
+                    SpriteCut cut = new SpriteCut();
+                    cut.X = sprite[0];
+                    cut.Y = sprite[1];
+                    cut.Width = sprite[2];
+                    cut.Height = sprite[3];
+                    cut.Index = index;
+                    index++;
+                    spriteCollection.Children.Add(cut);
+                }
+
+                ToolBarViewModel.GetInstance().ChangeColorPickerColor();
+            }
+
+            return false;
+        }
+
+        public bool Export()
+        {
+            if (CurrentTexture == null)
+                return false;
+
+            sfDialog.FileName = $"{imageName}.json";
+            if (sfDialog.ShowDialog() == true)
+            {
+                JArray sprites = new JArray();
+                JArray newArr;
+                foreach (SpriteCut cut in SpriteCollection.Children)
+                {
+                    newArr = new JArray();
+                    newArr.Add(new int[4] { (int)cut.X, (int)cut.Y, (int)cut.Width, (int)cut.Height });
+                    sprites.Add(newArr);
+                }
+
+                JObject data = new JObject
+                {
+                    new JProperty("KeyColor", new JObject(
+                            new JProperty("Red", _keyColor.R),
+                            new JProperty("Green", _keyColor.G),
+                            new JProperty("Blue", _keyColor.B)
+                            )),
+                    new JProperty("Sprites", sprites)
+                };
+
+                if (sfDialog.OverwritePrompt)
+                {
+                    try
+                    {
+                        File.Delete(sfDialog.FileName);
+                    }
+                    catch (System.IO.IOException e)
+                    {
+                        MessageBox.Show(e.Message);
+                        return false;
+                    }
+                }
+                File.WriteAllText(sfDialog.FileName, data.ToString());
+
+                return true;
+            }
+
+            return false;
         }
 
         public bool LoadImage()
@@ -298,23 +384,36 @@ namespace SpaghettiSpriteEditor.ViewModel
                 originalHeight = (int)ImageDisplay.Height;
 
                 imageBitmap = new Bitmap(new Uri(opfDialog.FileName));
+
+                imageName = Path.GetFileName(opfDialog.FileName);
                 return true;
             }
 
             return false;
+        }
+        #endregion
+
+        public void AutoSliceSprite()
+        {
+            AutoSliceWindow wnd = new AutoSliceWindow();
+            wnd.Show();
+        }
+
+        public void PickKeyColorAtCord(Point position)
+        {
+            _keyColor = imageBitmap.GetPixel((int)position.X, (int)position.Y);
         }
 
         public int GetMouseOverIndex(Point position)
         {
             position.X = (int)(position.X / Scale);
             position.Y = (int)(position.Y / Scale);
-            int index = -1;
-            int size = SpriteCollection.Children.Count;
+            int index = spriteCollection.Children.Count;
             SpriteCut child;
             do
             {
-                index++;
-                if (index >= size)
+                index--;
+                if (index < 0)
                 {
                     return -1;
                 }
