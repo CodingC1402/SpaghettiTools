@@ -209,7 +209,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             if (scaleLevel == 0)
                 scaleLevel = 2;
             if (scaleLevel < 0)
-                scale = 1 / Math.Abs(scaleLevel);
+                scale = 1 / (float)Math.Abs(scaleLevel);
             else
                 scale = scaleLevel;
             UpdateToScale();
@@ -244,22 +244,39 @@ namespace SpaghettiSpriteEditor.ViewModel
                 stopTask = true;
 
             int count = spriteCollection.Children.Count;
+            int updateNumer = (int)(50);
+            int runtime = 0;
+            if (updateNumer != 0)
+                runtime = count / updateNumer;
+            int updateAfter = count - (runtime * updateNumer);
             Task.Run(() =>
             {
                 taskRunning = true;
                 int index = 0;
-                while (index < count)
+                while (index < runtime)
                 {
                     spriteCollection.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                     {
-                        SpriteCut sprite = (SpriteCut)spriteCollection.Children[index];
-                        sprite.UpdateToScale();
+                        for (int i = 0; i < updateNumer; i++)
+                        {
+                            SpriteCut sprite = (SpriteCut)spriteCollection.Children[updateNumer * index + i];
+                            sprite.UpdateToScale();
+                        }
                     }));
                     index++;
 
                     if (stopTask)
                         return;
                 }
+
+                spriteCollection.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    for (int i = 0; i < updateAfter; i++)
+                    {
+                        SpriteCut sprite = (SpriteCut)spriteCollection.Children[updateNumer * index + i];
+                        sprite.UpdateToScale();
+                    }
+                }));
                 taskRunning = false;
             });
 
