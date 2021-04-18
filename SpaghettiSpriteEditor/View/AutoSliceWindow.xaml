@@ -73,8 +73,10 @@
                     <Setter Property="Margin" Value="5, 0, 3, 3"/>
                 </Style>
             </StackPanel.Resources>
-            <ui:FlatButton Text="Slice" Background="{StaticResource Component}"/>
-            <ui:FlatButton Text="Cancel" Background="{StaticResource Component}"/>
+            <ui:FlatButton Text="Slice" Background="{StaticResource Component}"
+                           MouseDown="Accept"/>
+            <ui:FlatButton Text="Cancel" Background="{StaticResource Component}"
+                           MouseDown="Cancel"/>
         </StackPanel>
     </Grid>
 </Window>

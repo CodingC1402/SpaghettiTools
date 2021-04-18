@@ -33,12 +33,14 @@ namespace SpaghettiSpriteEditor.View
 
         private void Accept(object sender, MouseButtonEventArgs e)
         {
-
+            this.DialogResult = true;
+            this.Close();
         }
 
         private void Cancel(object sender, MouseButtonEventArgs e)
         {
-
+            this.DialogResult = false;
+            this.Close();
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using SpaghettiSpriteEditor.ViewModel;
+
 namespace SpaghettiSpriteEditor.View
 {
     /// <summary>
@@ -22,6 +24,7 @@ namespace SpaghettiSpriteEditor.View
         public MainWindow()
         {
             InitializeComponent();
+            SpriteEditor.GetInstance().MainWindow = this;
         }
     }
 }
