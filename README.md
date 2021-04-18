@@ -4,7 +4,7 @@ This is a program used for cutting an image into smaller sprite and picking keyc
 The sprite information will be stored in a json file with format:
 
 {
-  KeyColor: {
+  KeyColor: {<br>
     Red: <value>
     Green: <value>
     Blue: <value>
