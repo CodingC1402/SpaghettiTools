@@ -1,0 +1,33 @@
+﻿<Window x:Class="SpaghettiTools.Components.ProcessingWnd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpaghettiTools.Components"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        AllowsTransparency="True"
+        Title="ProcessingWnd" Height="200" Width="300">
+    <Grid x:Name="content"
+          Background="{StaticResource Component}">
+        <Image gif:ImageBehavior.AnimatedSource="../Resource/Loading.gif" 
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Height="150"
+               Width="150"
+               Margin="0, -10, 0, 0">
+        </Image>
+        <TextBlock FontFamily="Algerian"
+                   FontSize="17"
+                   FontWeight="{Binding FontWeight}"
+                   FontStyle="{Binding FontStyle}"
+                   Text="{Binding Text, FallbackValue=Doing_Stuff...}"
+                   Foreground="{StaticResource Foreground}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
+                   Margin="0, 0, 0, 3"/>
+    </Grid>
+</Window>

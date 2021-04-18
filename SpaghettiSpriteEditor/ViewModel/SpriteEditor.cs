@@ -13,8 +13,10 @@ using SpaghettiSpriteEditor.View;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Windows.Threading;
 
 using SpaghettiTools.Utilities;
+using SpaghettiTools.Components;
 
 namespace SpaghettiSpriteEditor.ViewModel
 {
@@ -123,6 +125,7 @@ namespace SpaghettiSpriteEditor.ViewModel
         public TopBar TopBar { get; set; }
         public MainWindow MainWindow { get; set; }
 
+        protected int scaleLevel; // -20 to 20
         protected string imageName;
         protected OpenFileDialog opfDialog;
         protected SaveFileDialog sfDialog;
@@ -158,6 +161,7 @@ namespace SpaghettiSpriteEditor.ViewModel
             tools.Add(Tools.ColorPicker, new ColorPickerTool());
             ChangeTool();
         }
+
         #region Job
         public void StartJob(MouseButtonEventArgs e) // Mouse down
         {
@@ -197,30 +201,37 @@ namespace SpaghettiSpriteEditor.ViewModel
         #endregion
 
         #region Zoom
-        public bool ZoomIn(int setScale)
+        public bool ZoomIn()
         {
-            if (setScale == scale)
-                return true;
-
-            if (setScale < 0.01 || setScale > 20)
+            if (scaleLevel >= 20)
                 return false;
-
-            scale = setScale;
+            scaleLevel++;
+            if (scaleLevel == 0)
+                scaleLevel = 2;
+            if (scaleLevel < 0)
+                scale = 1 / Math.Abs(scaleLevel);
+            else
+                scale = scaleLevel;
             UpdateToScale();
             return true;
         }
-        public bool ZoomOut(int setScale)
+        public bool ZoomOut()
         {
-            if (setScale == scale)
-                return true;
-
-            if (setScale < 0.01 || setScale > 20)
+            if (scaleLevel <= -20)
                 return false;
-
-            scale = 1 / (double)setScale;
+            scaleLevel--;
+            if (scaleLevel == 0)
+                scaleLevel = -2;
+            if (scaleLevel < 0)
+                scale = 1 / (float)Math.Abs(scaleLevel);
+            else
+                scale = scaleLevel;
             UpdateToScale();
             return true;
         }
+
+        protected volatile bool taskRunning = false;
+        protected volatile bool stopTask = false;
         protected void UpdateToScale()
         {
             double offSetX = imageViewPort.VerticalOffset / imageDisplay.Width;
@@ -228,11 +239,31 @@ namespace SpaghettiSpriteEditor.ViewModel
 
             imageDisplay.Width = (int)(originalWidth * scale + 0.5);
             imageDisplay.Height = (int)(originalHeight * scale + 0.5);
-            foreach (SpriteCut cut in spriteCollection.Children)
-            {
-                cut.UpdateToScale();
-            }
 
+            if (taskRunning)
+                stopTask = true;
+
+            int count = spriteCollection.Children.Count;
+            Task.Run(() =>
+            {
+                taskRunning = true;
+                int index = 0;
+                while (index < count)
+                {
+                    spriteCollection.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                    {
+                        SpriteCut sprite = (SpriteCut)spriteCollection.Children[index];
+                        sprite.UpdateToScale();
+                    }));
+                    index++;
+
+                    if (stopTask)
+                        return;
+                }
+                taskRunning = false;
+            });
+
+            stopTask = false;
             imageViewPort.ScrollToVerticalOffset((int)(imageDisplay.Width * offSetX + 0.5));
             imageViewPort.ScrollToHorizontalOffset((int)(imageDisplay.Height * offSetY + 0.5));
         }
@@ -372,8 +403,8 @@ namespace SpaghettiSpriteEditor.ViewModel
             if(opfDialog.ShowDialog() == true)
             {
                 spriteCollection.Children.Clear();
-                ((ZoomTool)tools[Tools.Zoom]).Reset();
                 scale = 1;
+                scaleLevel = 1;
                 _keyColor = Color.FromRgb(255, 255, 255);
                 ToolBarViewModel.GetInstance().ChangeColorPickerColor();
 
@@ -426,24 +457,47 @@ namespace SpaghettiSpriteEditor.ViewModel
                 if (cutRow == 0 || cutCol == 0)
                     return;
 
-                SpriteCollection.Children.Clear();
-                SpriteCut sprite;
-                int index = 0;
+                ProcessingWnd processingWnd = new ProcessingWnd();
+                processingWnd.Text = "Slicing up the image :D";
 
-                for (int row = 0; row < cutRow; row++)
+                Task.Run(() =>
                 {
-                    int offSetRow = gridHeight * row + offSetTop + offSetBottom * row;
-                    for (int col = 0; col < cutCol; col++)
+                    processingWnd.Dispatcher.Invoke(new Action(() =>
                     {
-                        sprite = new SpriteCut();
-                        sprite.Position = new Point(gridWidth * col + offSetLeft + offSetRight * col, offSetRow);
-                        sprite.Width = spriteWidth;
-                        sprite.Height = spriteHeight;
-                        sprite.Index = index;
-                        spriteCollection.Children.Add(sprite);
-                        index++;
+                        processingWnd.Show();
+                        MainWindow.IsEnabled = false;
+                    }));
+
+                    int index = 0;
+                    spriteCollection.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                    {
+                        SpriteCollection.Children.Clear();
+                    }));
+                    for (int row = 0; row < cutRow; row++)
+                    {
+                        int offSetRow = gridHeight * row + offSetTop + offSetBottom * row;
+                        spriteCollection.Dispatcher.Invoke(DispatcherPriority.Background, new Action(() =>
+                        {
+                            for (int col = 0; col < cutCol; col++)
+                            {
+                                SpriteCut sprite = new SpriteCut();
+                                sprite.Position = new Point(gridWidth * col + offSetLeft + offSetRight * col, offSetRow);
+                                sprite.Width = spriteWidth;
+                                sprite.Height = spriteHeight;
+                                sprite.Index = index;
+                                spriteCollection.Children.Add(sprite);
+                                index++;
+                            }
+                        }));
                     }
-                }
+
+                    processingWnd.Dispatcher.Invoke(new Action(() =>
+                    {
+                        processingWnd.Close();
+                        MainWindow.IsEnabled = true;
+                    }));
+                });
+
             }
         }
 

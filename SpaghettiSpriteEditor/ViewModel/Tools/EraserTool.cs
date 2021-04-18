@@ -38,7 +38,7 @@ namespace SpaghettiSpriteEditor.ViewModel
                 return;
 
             editor.SpriteCollection.Children.RemoveAt(index);
-            for (int i = 0; i < editor.SpriteCollection.Children.Count; i++)
+            for (int i = index; i < editor.SpriteCollection.Children.Count; i++)
             {
                 ((SpriteCut)editor.SpriteCollection.Children[i]).Index = i;
             }
